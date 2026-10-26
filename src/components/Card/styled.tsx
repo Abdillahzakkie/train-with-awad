@@ -24,10 +24,18 @@ export const CardStyled = styled.div`
 `;
 
 export const CardIconStyled = styled.div`
+	display: grid;
+	place-items: center;
 	width: 44px;
 	height: 44px;
 	margin-bottom: 12px;
 	border-radius: 12px;
-	background: var(--tw-surface-2);
-	border: 1px solid var(--tw-line-2);
+	background: color-mix(in srgb, var(--tw-accent) 14%, transparent);
+	border: 1px solid color-mix(in srgb, var(--tw-accent) 32%, transparent);
+	color: var(--tw-accent);
+
+	svg {
+		width: 22px;
+		height: 22px;
+	}
 `;

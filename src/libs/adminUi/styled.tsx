@@ -333,11 +333,18 @@ export const EmptyStyled = styled.div`
 	background: var(--adm-surface);
 
 	.eglyph {
+		display: grid;
+		place-items: center;
 		width: 56px;
 		height: 56px;
 		border-radius: 16px;
-		background: var(--adm-surface-2);
-		border: 1px solid var(--adm-line);
+		background: color-mix(in srgb, var(--adm-accent) 14%, transparent);
+		border: 1px solid color-mix(in srgb, var(--adm-accent) 32%, transparent);
+		color: var(--adm-accent);
+	}
+	.eglyph svg {
+		width: 28px;
+		height: 28px;
 	}
 	h2 {
 		margin: 0;

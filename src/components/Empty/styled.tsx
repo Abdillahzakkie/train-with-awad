@@ -20,12 +20,20 @@ export const EmptyStyled = styled.div`
 `;
 
 export const EmptyGlyphStyled = styled.div`
+	display: grid;
+	place-items: center;
 	width: 52px;
 	height: 52px;
 	margin-bottom: 4px;
 	border-radius: 14px;
-	background: var(--tw-surface-2);
-	border: 1px solid var(--tw-line-2);
+	background: color-mix(in srgb, var(--tw-accent) 14%, transparent);
+	border: 1px solid color-mix(in srgb, var(--tw-accent) 32%, transparent);
+	color: var(--tw-accent);
+
+	svg {
+		width: 26px;
+		height: 26px;
+	}
 `;
 
 export const EmptyTitleStyled = styled.span`
