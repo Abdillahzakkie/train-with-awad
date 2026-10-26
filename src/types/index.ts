@@ -27,3 +27,28 @@ export interface IEmailMessage {
 	subject: string;
 	html: string;
 }
+
+// The editable-content contract. A page is an ordered list of sections; a
+// section is a typed block whose `fields` hold the editable text. Reordering
+// sections or flipping `visible` changes what renders and where, so an admin can
+// edit both the text and its position without a code change. `fields` is
+// free-form because each `type` (hero, steps, priceCard, ...) owns its own
+// shape; the renderer and editor read it by type.
+export interface ISiteSection {
+	id: string;
+	type: string;
+	order: number;
+	visible: boolean;
+	fields: Record<string, unknown>;
+}
+
+export interface ISitePage {
+	slug: string;
+	metaTitle: string;
+	metaDescription: string;
+	sections: ISiteSection[];
+}
+
+export interface SiteContentData {
+	pages: Record<string, ISitePage>;
+}

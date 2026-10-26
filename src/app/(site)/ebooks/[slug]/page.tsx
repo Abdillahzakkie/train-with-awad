@@ -1,21 +1,27 @@
 import { Hero, Hint, Price, Section } from "@/components";
 import { EBOOKS } from "@/content";
 import BuyButton from "@/libs/BuyButton";
+import { getEbooks } from "@/server/data";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+// The body renders live from the database; generateStaticParams reads the
+// static catalogue so the build needs no database.
+export const dynamic = "force-dynamic";
 
 interface IPageProps {
 	params: Promise<{ slug: string }>;
 }
 
-// Pre-render one page per ebook in the catalogue.
+// One route per ebook in the static catalogue.
 export function generateStaticParams() {
 	return EBOOKS.map((ebook) => ({ slug: ebook.slug }));
 }
 
 export async function generateMetadata({ params }: IPageProps): Promise<Metadata> {
 	const { slug } = await params;
-	const ebook = EBOOKS.find((item) => item.slug === slug);
+	const ebooks = await getEbooks({ publishedOnly: true });
+	const ebook = ebooks.find((item) => item.slug === slug);
 	if (!ebook) {
 		return { title: "Ebook not found — Train With Awad" };
 	}
@@ -56,7 +62,8 @@ const COVER: React.CSSProperties = {
 
 export default async function EbookPage({ params }: IPageProps) {
 	const { slug } = await params;
-	const ebook = EBOOKS.find((item) => item.slug === slug);
+	const ebooks = await getEbooks({ publishedOnly: true });
+	const ebook = ebooks.find((item) => item.slug === slug);
 	if (!ebook) {
 		notFound();
 	}

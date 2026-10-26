@@ -1233,6 +1233,584 @@ a.ebook:focus-visible,
 	flex-wrap: wrap;
 }
 
+/* ============================================================================
+   Admin surface — the light, calm management UI.
+
+   The public site is dark; the admin is its opposite. `.desk.admin` and
+   `.phone.admin` re-declare the --adm-* token set from `src/libs/adminTheme.ts`
+   and paint the frame light, so the same device shells (and the overflow check,
+   which keys off `.desk`/`.phone`) are reused. Every admin class is scoped under
+   `.admin`, so it never reaches a public frame. Buttons still use `.btn`/`.btn
+   .pri` so the overflow and ease checks see them.
+
+   Where this disagrees with `src/libs/adminTheme.ts`, the app wins and this is
+   the bug.
+   ========================================================================= */
+.desk.admin,
+.phone.admin {
+	--adm-bg: #f5f6f8;
+	--adm-surface: #ffffff;
+	--adm-surface-2: #eef1f5;
+	--adm-ink: #121722;
+	--adm-ink-2: #3f4a59;
+	--adm-ink-3: #626d7c;
+	--adm-line: #e4e8ee;
+	--adm-line-2: #8b97a6;
+	--adm-accent: #a96f22;
+	--adm-accent-strong: #8a5a18;
+	--adm-accent-wash: #fbf3e4;
+	--adm-accent-100: #f3e3c4;
+	--adm-pri-bg: #141a24;
+	--adm-pri-fg: #ffffff;
+	--adm-danger: #b3261e;
+	--adm-danger-bg: #fdeceb;
+	--adm-ok: #1e7a46;
+	--adm-ok-bg: #e6f4ec;
+	--adm-warn: #8a5a12;
+	--adm-warn-bg: #f8efdd;
+	--adm-info: #2f5fa0;
+	--adm-info-bg: #e9f0fa;
+	--adm-idle-bg: #eef1f5;
+	--adm-focus: 0 0 0 3px rgba(169, 111, 34, 0.28);
+	--adm-shadow: 0 1px 2px rgba(18, 23, 34, 0.06), 0 10px 28px rgba(18, 23, 34, 0.08);
+	--adm-knob-shadow: 0 1px 3px rgba(18, 23, 34, 0.3);
+	--adm-scrim: rgba(18, 23, 34, 0.45);
+	--adm-r-sm: 10px;
+	--adm-r: 14px;
+	--adm-r-lg: 18px;
+	--adm-r-pill: 999px;
+	--adm-ctl-h: 48px;
+	--adm-gap: 16px;
+	--adm-pad: 20px;
+	background: var(--adm-bg);
+	color: var(--adm-ink);
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+/* The shell: a fixed sidebar beside the scrolling main area. */
+.admin .a-shell {
+	display: flex;
+	height: 100%;
+	align-items: stretch;
+}
+.admin .a-rail {
+	width: 248px;
+	flex: none;
+	background: var(--adm-surface);
+	border-right: 1px solid var(--adm-line);
+	display: flex;
+	flex-direction: column;
+	padding: 18px 14px;
+}
+.admin .a-brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-weight: 800;
+	font-size: 17px;
+	letter-spacing: -0.015em;
+	padding: 8px 10px 16px;
+}
+.admin .a-brand .wm {
+	width: 26px;
+	height: 26px;
+	border-radius: 7px;
+	background: var(--adm-accent);
+	flex: none;
+}
+.admin .a-nav {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+.admin .a-nav a {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	height: 44px;
+	padding: 0 12px;
+	border-radius: var(--adm-r-sm);
+	color: var(--adm-ink-2);
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 15px;
+}
+.admin .a-nav a .ic {
+	width: 20px;
+	height: 20px;
+	border-radius: 6px;
+	background: var(--adm-surface-2);
+	border: 1px solid var(--adm-line);
+	flex: none;
+}
+.admin .a-nav a.on {
+	background: var(--adm-accent-wash);
+	color: var(--adm-accent-strong);
+	font-weight: 700;
+}
+.admin .a-nav a.on .ic {
+	background: var(--adm-accent-100);
+	border-color: var(--adm-accent);
+}
+.admin .a-rail .a-user {
+	margin-top: auto;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 14px 8px 2px;
+	border-top: 1px solid var(--adm-line);
+}
+.admin .a-user .av {
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	background: var(--adm-surface-2);
+	border: 1px solid var(--adm-line);
+	flex: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	font-size: 13px;
+	color: var(--adm-ink-2);
+}
+.admin .a-user .nm {
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 1.2;
+}
+.admin .a-user .em {
+	font-size: 12px;
+	color: var(--adm-ink-3);
+}
+
+/* THE FIX the clogged screens needed: the main area breathes. Top and side
+   padding, and a max-width inner column, so the heading is off the top edge and
+   the header action never jams the viewport corner. */
+.admin .a-main {
+	flex: 1;
+	min-width: 0;
+	overflow-y: auto;
+}
+.admin .a-inner {
+	padding: 40px 48px 56px;
+}
+
+.admin .a-phead {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+	margin-bottom: 28px;
+}
+.admin .a-phead h1 {
+	margin: 0;
+	font-size: 26px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+.admin .a-phead p {
+	margin: 6px 0 0;
+	font-size: 15px;
+	color: var(--adm-ink-3);
+	line-height: 1.5;
+	max-width: 62ch;
+}
+.admin .a-phead .a-actions {
+	margin-left: auto;
+	display: flex;
+	gap: 10px;
+	flex: none;
+}
+
+.admin .a-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+.admin .a-card {
+	background: var(--adm-surface);
+	border: 1px solid var(--adm-line);
+	border-radius: var(--adm-r);
+	padding: var(--adm-pad);
+	box-shadow: var(--adm-shadow);
+}
+.admin .a-card > h2 {
+	margin: 0 0 14px;
+	font-size: 16px;
+	font-weight: 700;
+}
+.admin .a-g3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+}
+.admin .a-g2 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+}
+.phone.admin .a-g3,
+.phone.admin .a-g2 {
+	grid-template-columns: 1fr;
+}
+.admin .a-stat {
+	display: flex;
+	flex-direction: column;
+}
+.admin .a-stat .v {
+	font-size: 34px;
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	font-variant-numeric: tabular-nums;
+	line-height: 1.1;
+}
+.admin .a-stat .l {
+	font-size: 14px;
+	color: var(--adm-ink-3);
+	font-weight: 600;
+	margin-top: 2px;
+}
+
+/* Fields and plain controls. */
+.admin .a-field {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+.admin .a-field + .a-field {
+	margin-top: 16px;
+}
+.admin .a-field label {
+	font-size: 15px;
+	font-weight: 650;
+	color: var(--adm-ink-2);
+}
+.admin .a-ctl {
+	min-height: 48px;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	border: 1px solid var(--adm-line-2);
+	border-radius: var(--adm-r-sm);
+	background: var(--adm-surface);
+	color: var(--adm-ink);
+	font-size: 16px;
+	padding: 0 14px;
+}
+.admin .a-ctl.ta {
+	min-height: 96px;
+	align-items: flex-start;
+	padding: 12px 14px;
+	line-height: 1.5;
+	color: var(--adm-ink-2);
+}
+.admin .a-ctl.focus {
+	border-color: var(--adm-accent);
+	box-shadow: var(--adm-focus);
+}
+
+/* react-select — the themed control and menu. The closed control reads like an
+   input with a chevron; the open menu is a white panel with a hover row and a
+   ticked selection. This is the look the app's AdminSelect must match. */
+.admin .a-select {
+	position: relative;
+}
+.admin .a-select .rs-control {
+	min-height: 48px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	border: 1px solid var(--adm-line-2);
+	border-radius: var(--adm-r-sm);
+	background: var(--adm-surface);
+	padding: 0 12px 0 14px;
+	font-size: 16px;
+	color: var(--adm-ink);
+}
+.admin .a-select.open .rs-control {
+	border-color: var(--adm-accent);
+	box-shadow: var(--adm-focus);
+}
+.admin .a-select .rs-val {
+	flex: 1;
+}
+.admin .a-select .rs-arrow {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 6px solid var(--adm-ink-3);
+	flex: none;
+}
+.admin .a-select .rs-menu {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: calc(100% + 6px);
+	background: var(--adm-surface);
+	border: 1px solid var(--adm-line);
+	border-radius: var(--adm-r-sm);
+	box-shadow: var(--adm-shadow);
+	padding: 6px;
+	z-index: 5;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+.admin .a-select .rs-opt {
+	height: 40px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0 10px;
+	border-radius: 8px;
+	font-size: 15px;
+	color: var(--adm-ink-2);
+}
+.admin .a-select .rs-opt.focus {
+	background: var(--adm-surface-2);
+	color: var(--adm-ink);
+}
+.admin .a-select .rs-opt.sel {
+	background: var(--adm-accent-wash);
+	color: var(--adm-accent-strong);
+	font-weight: 650;
+}
+.admin .a-select .rs-opt.sel::after {
+	content: "\2713";
+	margin-left: auto;
+}
+
+/* Admin buttons: the light variants over the shared .btn geometry. */
+.admin .btn {
+	height: 48px;
+	min-height: 44px;
+	border-radius: var(--adm-r-sm);
+	border: 1px solid var(--adm-line-2);
+	background: var(--adm-surface);
+	color: var(--adm-ink);
+	font-weight: 650;
+	font-size: 15px;
+	padding: 0 20px;
+	box-shadow: none;
+}
+.admin .btn.pri {
+	background: var(--adm-pri-bg);
+	border-color: var(--adm-pri-bg);
+	color: var(--adm-pri-fg);
+}
+.admin .btn.danger {
+	background: var(--adm-danger);
+	border-color: var(--adm-danger);
+	color: #ffffff;
+}
+.admin .btn.sm {
+	height: 40px;
+	min-height: 40px;
+	padding: 0 14px;
+	font-size: 14px;
+}
+
+/* Table. */
+.admin .a-table {
+	border: 1px solid var(--adm-line);
+	border-radius: var(--adm-r);
+	background: var(--adm-surface);
+	overflow: hidden;
+}
+.admin .a-table table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.admin .a-table th {
+	text-align: left;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--adm-ink-3);
+	background: var(--adm-surface-2);
+	padding: 0 16px;
+	height: 46px;
+	border-bottom: 1px solid var(--adm-line);
+	white-space: nowrap;
+}
+.admin .a-table td {
+	padding: 12px 16px;
+	border-bottom: 1px solid var(--adm-line);
+	vertical-align: middle;
+	font-size: 15px;
+	color: var(--adm-ink);
+}
+.admin .a-table tr:last-child td {
+	border-bottom: 0;
+}
+.admin .a-cellctl {
+	display: inline-flex;
+	gap: 8px;
+	align-items: center;
+}
+
+/* Badge (a word plus a colour) and toggle. */
+.admin .a-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 12px;
+	border-radius: var(--adm-r-pill);
+	font-size: 14px;
+	font-weight: 650;
+	white-space: nowrap;
+}
+.admin .a-badge::before {
+	content: "";
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: currentColor;
+	flex: none;
+}
+.admin .a-badge.ok {
+	color: var(--adm-ok);
+	background: var(--adm-ok-bg);
+}
+.admin .a-badge.warn {
+	color: var(--adm-warn);
+	background: var(--adm-warn-bg);
+}
+.admin .a-toggle {
+	width: 52px;
+	height: 30px;
+	border-radius: var(--adm-r-pill);
+	background: var(--adm-line-2);
+	position: relative;
+	flex: none;
+}
+.admin .a-toggle::after {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: #ffffff;
+	box-shadow: var(--adm-knob-shadow);
+}
+.admin .a-toggle.on {
+	background: var(--adm-accent);
+}
+.admin .a-toggle.on::after {
+	left: 25px;
+}
+
+/* A reorderable section row in the page-and-text editor. */
+.admin .a-srow {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	background: var(--adm-surface);
+	border: 1px solid var(--adm-line);
+	border-radius: var(--adm-r);
+	padding: 16px 20px;
+	box-shadow: var(--adm-shadow);
+}
+.admin .a-srow .nm {
+	font-weight: 700;
+	font-size: 15px;
+}
+.admin .a-srow .ds {
+	font-size: 13px;
+	color: var(--adm-ink-3);
+	margin-top: 2px;
+}
+.admin .a-srow .a-sactions {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+/* A modal drawn over a desk frame: scrim fills the frame, dialog centred. */
+.admin .a-scrim {
+	position: absolute;
+	inset: 0;
+	z-index: 20;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	background: var(--adm-scrim);
+}
+.admin .a-dialog {
+	width: 460px;
+	max-width: 100%;
+	background: var(--adm-surface);
+	border: 1px solid var(--adm-line);
+	border-radius: var(--adm-r-lg);
+	box-shadow: var(--adm-shadow);
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+.admin .a-dialog h2 {
+	margin: 0;
+	font-size: 19px;
+	font-weight: 700;
+}
+.admin .a-dialog .a-dactions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 6px;
+}
+
+/* Admin on a phone: the rail collapses to a top bar with a menu. */
+.phone.admin .a-topbar {
+	height: 56px;
+	flex: none;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 0 16px;
+	background: var(--adm-surface);
+	border-bottom: 1px solid var(--adm-line);
+}
+.phone.admin .a-topbar .a-brand {
+	font-size: 16px;
+	padding: 0;
+}
+.phone.admin .a-topbar .a-menu {
+	margin-left: auto;
+	width: 44px;
+	height: 44px;
+	border-radius: var(--adm-r-sm);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+}
+.phone.admin .a-topbar .a-menu i {
+	display: block;
+	width: 20px;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--adm-ink-2);
+}
+.phone.admin .pbody {
+	gap: 16px;
+}
+.phone.admin .a-phead {
+	flex-wrap: wrap;
+	margin-bottom: 4px;
+}
+.phone.admin .a-phead .a-actions {
+	margin-left: 0;
+	width: 100%;
+}
+
 /* ---------- Narrow viewports ----------------------------------------------
    A frame is a fixed-size artboard, so the sheet does not reflow the way a
    page does — at a narrow window the 793px desk frame overhangs a 375px grid

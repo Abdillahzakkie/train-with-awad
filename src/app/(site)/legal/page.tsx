@@ -1,30 +1,27 @@
-import { Button, Hero, Section } from "@/components";
-import { LEGAL_CONTENT } from "@/content";
+import SiteRenderer from "@/libs/SiteRenderer";
+import { getSiteContent } from "@/server/data";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Privacy & terms",
-	description: "How Train With Awad collects, uses, and protects your details, and what you can ask for.",
-	openGraph: {
-		title: "Privacy & terms — Train With Awad",
-		description: "What Train With Awad collects, why, how long it is kept, and the choices you have.",
-	},
-};
+export const dynamic = "force-dynamic";
 
-export default function LegalPage() {
-	const { hero, sections } = LEGAL_CONTENT;
-	return (
-		<>
-			<Hero eyebrow={hero.eyebrow} title={hero.title} lede={hero.lede}>
-				<Button as="a" href="/contact" variant="primary" size="lg">
-					Book a free call
-				</Button>
-			</Hero>
-			{sections.map((section) => (
-				<Section key={section.heading} title={section.heading}>
-					<p>{section.body}</p>
-				</Section>
-			))}
-		</>
-	);
+export async function generateMetadata(): Promise<Metadata> {
+	const { pages } = await getSiteContent();
+	const page = pages.legal;
+	return {
+		title: page?.metaTitle ?? "Privacy & terms",
+		description:
+			page?.metaDescription ??
+			"How Train With Awad collects, uses, and protects your details, and what you can ask for.",
+		openGraph: {
+			title: "Privacy & terms — Train With Awad",
+			description: "What Train With Awad collects, why, how long it is kept, and the choices you have.",
+		},
+	};
+}
+
+export default async function LegalPage() {
+	const { pages } = await getSiteContent();
+	const page = pages.legal;
+	if (!page) return null;
+	return <SiteRenderer page={page} />;
 }

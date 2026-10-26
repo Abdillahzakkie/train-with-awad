@@ -9,6 +9,9 @@ const leadSchema = new Schema(
 		mode: { type: String, enum: ["online", "in-person"], required: true },
 		goal: { type: String },
 		source: { type: String },
+		// Admin triage: a new enquiry is "New" until an admin marks it "Handled".
+		status: { type: String, enum: ["New", "Handled"], default: "New" },
+		handledAt: { type: Date },
 	},
 	// The site only ever creates a lead, so record createdAt and drop updatedAt.
 	{ timestamps: { createdAt: true, updatedAt: false } },

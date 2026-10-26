@@ -1,7 +1,10 @@
 import { Ebook, Hero, Price, Section } from "@/components";
-import { EBOOKS } from "@/content";
+import { getEbooks } from "@/server/data";
 import type { Metadata } from "next";
 import Link from "next/link";
+
+// Rendered per request so the catalogue and prices stay live with the database.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
 	title: "Ebooks — Train With Awad",
@@ -19,7 +22,8 @@ const GRID: React.CSSProperties = {
 
 const CARD_LINK: React.CSSProperties = { textDecoration: "none", color: "inherit", display: "block" };
 
-export default function EbooksPage() {
+export default async function EbooksPage() {
+	const ebooks = await getEbooks({ publishedOnly: true });
 	return (
 		<>
 			<Hero
@@ -29,7 +33,7 @@ export default function EbooksPage() {
 			/>
 			<Section>
 				<div style={GRID}>
-					{EBOOKS.map((ebook) => (
+					{ebooks.map((ebook) => (
 						<Link key={ebook.slug} href={`/ebooks/${ebook.slug}`} style={CARD_LINK}>
 							<Ebook title={ebook.title} blurb={ebook.blurb} cover="Cover">
 								<Price>£{ebook.priceGBP.toFixed(2)}</Price>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Train With Awad — Admin contact sheet (5 frames, responsive web)</title>
+<link rel="stylesheet" href="system.css">
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <h1>Admin — contact sheet</h1>
+  <p>The management UI a non-technical coach uses to run the site: the words on
+     each page and the order sections appear in, the ebooks, enquiries, orders,
+     images, and who can sign in. Drawn light and calm — the opposite of the dark
+     public site — on the same <code>1280 &times; 800</code> desk shell, plus one
+     phone frame for the responsive collapse.</p>
+  <p><strong>The source of truth for the admin's layout and controls.</strong>
+     Every value is a token or a class in <code>design/mockups/system.css</code>
+     (the <code>--adm-*</code> set, mirrored from
+     <code>src/libs/adminTheme.ts</code>); the admin classes are scoped under
+     <code>.admin</code>. The built screens match these frames.</p>
+  <p class="note"><strong>What these frames fix.</strong> The main area breathes:
+     <code>40px</code> top and <code>48px</code> side padding inside a
+     <code>1040px</code> column, so the heading sits off the top edge and the
+     header action never jams the corner. Every dropdown is a themed
+     <code>react-select</code> — a control with a chevron and a white menu with a
+     ticked selection — not a bare native <code>&lt;select&gt;</code>.</p>
+</header>
+
+<!-- ============================================================= DASHBOARD -->
+<h2 class="surface">Dashboard</h2>
+<p class="sub">The first screen after sign-in: what is on the site right now, and
+   the newest enquiries. It sets the spacing every admin screen uses.</p>
+
+<div class="sheet">
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">adm-dashboard</span>
+      <span class="snm">Dashboard</span>
+      <span class="spu">/admin — counts across the site and the latest enquiries</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk admin">
+      <div class="a-shell">
+        <aside class="a-rail">
+          <span class="a-brand"><span class="wm"></span> Train With Awad</span>
+          <nav class="a-nav">
+            <a class="on"><span class="ic"></span> Dashboard</a>
+            <a><span class="ic"></span> Pages &amp; text</a>
+            <a><span class="ic"></span> Ebooks</a>
+            <a><span class="ic"></span> Testimonials</a>
+            <a><span class="ic"></span> FAQ</a>
+            <a><span class="ic"></span> Coaching plans</a>
+            <a><span class="ic"></span> Enquiries</a>
+            <a><span class="ic"></span> Orders</a>
+            <a><span class="ic"></span> Images</a>
+            <a><span class="ic"></span> Settings</a>
+            <a><span class="ic"></span> Team &amp; access</a>
+          </nav>
+          <div class="a-user">
+            <span class="av">A</span>
+            <span><span class="nm">Awad</span><br><span class="em">coach@trainwithawad.local</span></span>
+          </div>
+        </aside>
+        <main class="a-main pcontent">
+          <div class="a-inner">
+            <header class="a-phead">
+              <div>
+                <h1>Dashboard</h1>
+                <p>A quick read on what is live and what needs a reply.</p>
+              </div>
+              <div class="a-actions"><a class="btn">View the site</a></div>
+            </header>
+            <div class="a-stack">
+              <div class="a-g3">
+                <div class="a-card a-stat"><span class="v">3</span><span class="l">Ebooks</span></div>
+                <div class="a-card a-stat"><span class="v">4</span><span class="l">Testimonials</span></div>
+                <div class="a-card a-stat"><span class="v">6</span><span class="l">FAQ answers</span></div>
+                <div class="a-card a-stat"><span class="v">3</span><span class="l">Coaching plans</span></div>
+                <div class="a-card a-stat"><span class="v">1</span><span class="l">New enquiries</span></div>
+                <div class="a-card a-stat"><span class="v">0</span><span class="l">Orders</span></div>
+              </div>
+              <div class="a-table">
+                <table>
+                  <thead><tr><th>From</th><th>Wants</th><th>When</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td>James Patel</td><td>Online coaching</td><td>2 hours ago</td><td><span class="a-badge warn">New</span></td></tr>
+                    <tr><td>Sara Okonkwo</td><td>In-person coaching</td><td>Yesterday</td><td><span class="a-badge ok">Handled</span></td></tr>
+                    <tr><td>Dan Reeves</td><td>Online coaching</td><td>3 days ago</td><td><span class="a-badge ok">Handled</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div></div>
+    <p class="fnote">The fix in one screen: heading off the top edge, the
+      <code>View the site</code> action inside the padded column, cards and the
+      enquiry table on a <code>16px</code> rhythm.</p>
+  </figure>
+</div>
+
+<!-- ========================================================= PAGES & TEXT -->
+<h2 class="surface">Pages &amp; text</h2>
+<p class="sub">Edit the words on a page and reorder or hide its sections. The page
+   picker is a themed react-select, drawn open so the menu style is a decision.</p>
+
+<div class="sheet">
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">adm-content</span>
+      <span class="snm">Pages &amp; text</span>
+      <span class="spu">/admin/content — pick a page, edit its details, reorder its sections</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk admin">
+      <div class="a-shell">
+        <aside class="a-rail">
+          <span class="a-brand"><span class="wm"></span> Train With Awad</span>
+          <nav class="a-nav">
+            <a><span class="ic"></span> Dashboard</a>
+            <a class="on"><span class="ic"></span> Pages &amp; text</a>
+            <a><span class="ic"></span> Ebooks</a>
+            <a><span class="ic"></span> Testimonials</a>
+            <a><span class="ic"></span> FAQ</a>
+            <a><span class="ic"></span> Coaching plans</a>
+            <a><span class="ic"></span> Enquiries</a>
+            <a><span class="ic"></span> Orders</a>
+            <a><span class="ic"></span> Images</a>
+            <a><span class="ic"></span> Settings</a>
+            <a><span class="ic"></span> Team &amp; access</a>
+          </nav>
+          <div class="a-user">
+            <span class="av">A</span>
+            <span><span class="nm">Awad</span><br><span class="em">coach@trainwithawad.local</span></span>
+          </div>
+        </aside>
+        <main class="a-main pcontent">
+          <div class="a-inner">
+            <header class="a-phead">
+              <div>
+                <h1>Pages &amp; text</h1>
+                <p>Edit the words on each page and the order the sections appear in. One save updates the whole site.</p>
+              </div>
+              <div class="a-actions"><button class="btn pri">Save changes</button></div>
+            </header>
+            <div class="a-stack">
+              <div class="a-field">
+                <label>Page</label>
+                <div class="a-select open">
+                  <div class="rs-control"><span class="rs-val">Home</span><span class="rs-arrow"></span></div>
+                  <div class="rs-menu">
+                    <div class="rs-opt sel">Home</div>
+                    <div class="rs-opt focus">About</div>
+                    <div class="rs-opt">Online coaching</div>
+                    <div class="rs-opt">In-person coaching</div>
+                    <div class="rs-opt">Contact</div>
+                  </div>
+                </div>
+              </div>
+              <div class="a-srow">
+                <div>
+                  <div class="nm">Intro</div>
+                  <div class="ds">Get stronger on a plan that fits your life</div>
+                </div>
+                <div class="a-sactions">
+                  <button class="btn sm">Up</button>
+                  <button class="btn sm">Down</button>
+                  <span class="a-toggle on"></span>
+                  <button class="btn sm">Edit text</button>
+                </div>
+              </div>
+              <div class="a-srow">
+                <div>
+                  <div class="nm">Ways to train</div>
+                  <div class="ds">Pick how you want to be coached</div>
+                </div>
+                <div class="a-sactions">
+                  <button class="btn sm">Up</button>
+                  <button class="btn sm">Down</button>
+                  <span class="a-toggle on"></span>
+                  <button class="btn sm">Edit text</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div></div>
+    <p class="fnote">The <code>Page</code> picker is <code>react-select</code>
+      shown open: a control with a chevron and a white menu, the current page
+      ticked. The app's <code>AdminSelect</code> renders this.</p>
+  </figure>
+</div>
+
+<!-- ========================================================= TEAM & ACCESS -->
+<h2 class="surface">Team &amp; access</h2>
+<p class="sub">Who can sign in and what each person can do. The role control is a
+   react-select in the table cell; the last owner can never be removed.</p>
+
+<div class="sheet">
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">adm-team</span>
+      <span class="snm">Team &amp; access</span>
+      <span class="spu">/admin/team — each teammate's role and whether they can sign in</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk admin">
+      <div class="a-shell">
+        <aside class="a-rail">
+          <span class="a-brand"><span class="wm"></span> Train With Awad</span>
+          <nav class="a-nav">
+            <a><span class="ic"></span> Dashboard</a>
+            <a><span class="ic"></span> Pages &amp; text</a>
+            <a><span class="ic"></span> Ebooks</a>
+            <a><span class="ic"></span> Testimonials</a>
+            <a><span class="ic"></span> FAQ</a>
+            <a><span class="ic"></span> Coaching plans</a>
+            <a><span class="ic"></span> Enquiries</a>
+            <a><span class="ic"></span> Orders</a>
+            <a><span class="ic"></span> Images</a>
+            <a><span class="ic"></span> Settings</a>
+            <a class="on"><span class="ic"></span> Team &amp; access</a>
+          </nav>
+          <div class="a-user">
+            <span class="av">A</span>
+            <span><span class="nm">Awad</span><br><span class="em">coach@trainwithawad.local</span></span>
+          </div>
+        </aside>
+        <main class="a-main pcontent">
+          <div class="a-inner">
+            <header class="a-phead">
+              <div>
+                <h1>Team &amp; access</h1>
+                <p>Who can sign in to the admin, and what each person can do.</p>
+              </div>
+              <div class="a-actions"><button class="btn pri">Invite teammate</button></div>
+            </header>
+            <div class="a-table">
+              <table>
+                <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Can sign in</th><th>Actions</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>Awad</td>
+                    <td>coach@trainwithawad.local</td>
+                    <td>
+                      <div class="a-select">
+                        <div class="rs-control"><span class="rs-val">Owner</span><span class="rs-arrow"></span></div>
+                      </div>
+                    </td>
+                    <td><span class="a-toggle on"></span></td>
+                    <td><div class="a-cellctl"><button class="btn sm">Remove</button></div></td>
+                  </tr>
+                  <tr>
+                    <td>Priya Shah</td>
+                    <td>priya@trainwithawad.local</td>
+                    <td>
+                      <div class="a-select">
+                        <div class="rs-control"><span class="rs-val">Editor</span><span class="rs-arrow"></span></div>
+                      </div>
+                    </td>
+                    <td><span class="a-toggle on"></span></td>
+                    <td><div class="a-cellctl"><button class="btn sm">Remove</button></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div></div>
+    <p class="fnote">The role is a closed <code>react-select</code> in the cell —
+      one clear control per cell, no raw permissions shown.</p>
+  </figure>
+</div>
+
+<!-- ======================================================= INVITE TEAMMATE -->
+<h2 class="surface">Invite a teammate</h2>
+<p class="sub">The modal for adding a person: name, email, role (react-select), and
+   a temporary password. One primary action sends it.</p>
+
+<div class="sheet">
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">adm-invite</span>
+      <span class="snm">Invite teammate</span>
+      <span class="spu">/admin/team — the add-a-person dialog over the table</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk admin">
+      <div class="a-shell">
+        <aside class="a-rail">
+          <span class="a-brand"><span class="wm"></span> Train With Awad</span>
+          <nav class="a-nav">
+            <a><span class="ic"></span> Dashboard</a>
+            <a><span class="ic"></span> Pages &amp; text</a>
+            <a><span class="ic"></span> Ebooks</a>
+            <a><span class="ic"></span> Testimonials</a>
+            <a><span class="ic"></span> FAQ</a>
+            <a><span class="ic"></span> Coaching plans</a>
+            <a><span class="ic"></span> Enquiries</a>
+            <a><span class="ic"></span> Orders</a>
+            <a><span class="ic"></span> Images</a>
+            <a><span class="ic"></span> Settings</a>
+            <a class="on"><span class="ic"></span> Team &amp; access</a>
+          </nav>
+          <div class="a-user">
+            <span class="av">A</span>
+            <span><span class="nm">Awad</span><br><span class="em">coach@trainwithawad.local</span></span>
+          </div>
+        </aside>
+        <main class="a-main pcontent">
+          <div class="a-inner">
+            <header class="a-phead">
+              <div>
+                <h1>Team &amp; access</h1>
+                <p>Who can sign in to the admin, and what each person can do.</p>
+              </div>
+              <div class="a-actions"><button class="btn">Invite teammate</button></div>
+            </header>
+            <div class="a-table">
+              <table>
+                <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Can sign in</th><th>Actions</th></tr></thead>
+                <tbody>
+                  <tr><td>Awad</td><td>coach@trainwithawad.local</td><td>Owner</td><td><span class="a-badge ok">Active</span></td><td>&nbsp;</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+      <div class="a-scrim">
+        <div class="a-dialog">
+          <h2>Invite a teammate</h2>
+          <div class="a-field">
+            <label>Name</label>
+            <div class="a-ctl">Priya Shah</div>
+          </div>
+          <div class="a-field">
+            <label>Email</label>
+            <div class="a-ctl">priya@trainwithawad.local</div>
+          </div>
+          <div class="a-field">
+            <label>Role</label>
+            <div class="a-select">
+              <div class="rs-control"><span class="rs-val">Editor</span><span class="rs-arrow"></span></div>
+            </div>
+          </div>
+          <div class="a-field">
+            <label>Temporary password</label>
+            <div class="a-ctl">change-me-first</div>
+          </div>
+          <div class="a-dactions">
+            <button class="btn">Cancel</button>
+            <button class="btn pri">Send invite</button>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <p class="fnote">The dialog carries the only primary action; the role is a
+      <code>react-select</code>. The scrim fills the frame, the dialog is centred.</p>
+  </figure>
+</div>
+
+<!-- ============================================================ ON A PHONE -->
+<h2 class="surface">On a phone</h2>
+<p class="sub">The admin is desktop-first, but it has to work on a phone: the rail
+   collapses to a top bar with a menu, and the padded column becomes the screen.</p>
+
+<div class="sheet phones">
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">adm-dashboard-phone</span>
+      <span class="snm">Dashboard · phone</span>
+      <span class="spu">/admin — the rail collapses to a menu; the cards stack</span>
+    </figcaption>
+    <div class="phonewrap"><div class="phone admin">
+      <div class="sbar"><span>9:41</span><span class="glyphs"><i></i><i></i><i></i></span></div>
+      <div class="a-topbar">
+        <span class="a-brand"><span class="wm" style="width:22px;height:22px;border-radius:6px;background:var(--adm-accent);display:inline-block"></span> Train With Awad</span>
+        <span class="a-menu"><i></i><i></i><i></i></span>
+      </div>
+      <div class="pbody">
+        <header class="a-phead">
+          <div>
+            <h1 style="font-size:22px">Dashboard</h1>
+            <p>What is live, and what needs a reply.</p>
+          </div>
+        </header>
+        <div class="a-g3">
+          <div class="a-card a-stat"><span class="v">3</span><span class="l">Ebooks</span></div>
+          <div class="a-card a-stat"><span class="v">1</span><span class="l">New enquiries</span></div>
+          <div class="a-card a-stat"><span class="v">0</span><span class="l">Orders</span></div>
+        </div>
+        <div class="a-table">
+          <table>
+            <thead><tr><th>From</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>James Patel</td><td><span class="a-badge warn">New</span></td></tr>
+              <tr><td>Sara Okonkwo</td><td><span class="a-badge ok">Handled</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div></div>
+    <p class="fnote">The same cards and table, one column, with the rail behind a
+      menu. No horizontal scroll.</p>
+  </figure>
+</div>
+
+</div>
+</body>
+</html>
