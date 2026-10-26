@@ -18,6 +18,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const SURFACES = {
 	"01-marketing.html": { surface: "marketing", platform: "web", device: "responsive" },
 	"02-shop.html": { surface: "shop", platform: "web", device: "responsive" },
+	"03-admin.html": { surface: "admin", platform: "web", device: "responsive" },
 };
 
 // BUILT maps a frame to the route that serves it. A row listed here reads
