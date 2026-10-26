@@ -3,8 +3,9 @@ import { config } from "@/server/config";
 import { ServiceError } from "@/server/errors";
 import type { TEbookSlug } from "@/types";
 
-// How long a download link stays valid after the order is fulfilled.
-const DOWNLOAD_TTL_MS = 48 * 60 * 60 * 1000;
+// How long a download link stays valid after the order is fulfilled (24 hours,
+// matching the approved design).
+const DOWNLOAD_TTL_MS = 24 * 60 * 60 * 1000;
 
 // shortcut: signs with STRIPE_WEBHOOK_SECRET instead of a dedicated secret;
 // add DOWNLOAD_TOKEN_SECRET if token lifetime must outlive a webhook-secret rotation.
