@@ -9,6 +9,25 @@ export const IntroStyled = styled.p`
 	line-height: 1.5;
 `;
 
+// A dark backdrop so a logo of any background (the default is white-on-black)
+// reads clearly in the preview, whatever the admin's light surface.
+export const LogoPreviewStyled = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	border: 1px solid var(--adm-line);
+	border-radius: var(--adm-r);
+	background: #111418;
+
+	img {
+		display: block;
+		width: auto;
+		max-width: 100%;
+		max-height: 72px;
+	}
+`;
+
 export const PasskeyListStyled = styled.ul`
 	list-style: none;
 	margin: 0;

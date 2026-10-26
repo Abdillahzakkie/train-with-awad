@@ -17,6 +17,7 @@ import {
 	FiUsers,
 	FiX,
 } from "react-icons/fi";
+import BrandLogo from "@/components/BrandLogo";
 import { can, type TPermissions, type TResource } from "@/constants/iam";
 import { RailStyled, ScrimStyled, TopBarStyled } from "./styled";
 
@@ -61,11 +62,12 @@ interface IAdminRailProps {
 	activeHref: string;
 	user: { name: string; email: string };
 	perms: TPermissions;
+	logoUrl: string;
 	// Defaults to a logout request plus a hard redirect; the layout may override.
 	onSignOut?: () => void;
 }
 
-export default function AdminRail({ items, activeHref, user, perms, onSignOut }: IAdminRailProps) {
+export default function AdminRail({ items, activeHref, user, perms, logoUrl, onSignOut }: IAdminRailProps) {
 	// Hide any section the signed-in person cannot read. The server enforces
 	// access regardless; this keeps the rail honest about what they can open.
 	const visible = items.filter((item) => can(perms, item.resource, "read"));
@@ -89,8 +91,7 @@ export default function AdminRail({ items, activeHref, user, perms, onSignOut }:
 		<>
 			<TopBarStyled>
 				<span className="brand">
-					<span className="wm" aria-hidden="true" />
-					Train With Awad
+					<BrandLogo src={logoUrl} height={28} />
 				</span>
 				<button
 					type="button"
@@ -107,8 +108,7 @@ export default function AdminRail({ items, activeHref, user, perms, onSignOut }:
 
 			<RailStyled aria-label="Admin sections" data-open={open}>
 				<div className="brand">
-					<span className="wm" aria-hidden="true" />
-					<span className="label">Train With Awad</span>
+					<BrandLogo src={logoUrl} height={28} />
 					<button type="button" className="close" aria-label="Close menu" onClick={() => setOpen(false)}>
 						<FiX aria-hidden="true" />
 					</button>

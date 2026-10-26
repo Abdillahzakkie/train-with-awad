@@ -3,12 +3,13 @@
 import { startAuthentication } from "@simplewebauthn/browser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import BrandLogo from "@/components/BrandLogo";
 import { AdminButton, AdminField, AdminInput, AdminNotice } from "@/libs/adminUi";
 import { SignCard, SignInShell } from "./styled";
 
 // Passkey-first sign-in: one big primary action, with email and password as a
 // collapsible fallback.
-export default function AdminSignInWrapper() {
+export default function AdminSignInWrapper({ logoUrl }: { logoUrl: string }) {
 	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 	const [email, setEmail] = useState("");
@@ -75,8 +76,7 @@ export default function AdminSignInWrapper() {
 		<SignInShell>
 			<SignCard>
 				<div className="brand">
-					<span className="wm" aria-hidden="true" />
-					Train With Awad
+					<BrandLogo src={logoUrl} height={32} />
 				</div>
 				<div>
 					<h1>Sign in to the admin</h1>

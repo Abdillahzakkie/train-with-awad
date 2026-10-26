@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Footer, Header, type IFooterColumn, type INavItem, SiteShell } from "@/layouts";
+import { getSettings } from "@/server/services/settings";
 
 // The nav set, CTA, and footer columns live here, in the route-group layout, so
 // the kit layouts stay content-free. Legal sits in the footer, not the top nav.
@@ -39,10 +40,11 @@ const FOOTER_COLUMNS: IFooterColumn[] = [
 	},
 ];
 
-export default function SiteLayout({ children }: { children: ReactNode }) {
+export default async function SiteLayout({ children }: { children: ReactNode }) {
+	const { logoUrl } = await getSettings();
 	return (
 		<SiteShell
-			header={<Header brand="Train With Awad" items={NAV} cta={CTA} />}
+			header={<Header logoUrl={logoUrl} items={NAV} cta={CTA} />}
 			footer={
 				<Footer
 					brand="Train With Awad"

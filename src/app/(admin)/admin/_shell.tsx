@@ -11,16 +11,18 @@ import { AdminInnerStyled, AdminMainStyled, AdminShellStyled } from "@/libs/admi
 export default function AdminShell({
 	user,
 	perms,
+	logoUrl,
 	children,
 }: {
 	user: { name: string; email: string };
 	perms: TPermissions;
+	logoUrl: string;
 	children: ReactNode;
 }) {
 	const pathname = usePathname();
 	return (
 		<AdminShellStyled>
-			<AdminRail items={ADMIN_SECTIONS} activeHref={pathname} user={user} perms={perms} />
+			<AdminRail items={ADMIN_SECTIONS} activeHref={pathname} user={user} perms={perms} logoUrl={logoUrl} />
 			<AdminMainStyled>
 				<AdminInnerStyled>{children}</AdminInnerStyled>
 			</AdminMainStyled>

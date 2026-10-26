@@ -1,5 +1,6 @@
 "use client";
-import { type ReactNode, useState } from "react";
+import { useState } from "react";
+import BrandLogo from "@/components/BrandLogo";
 import Button from "@/components/Button";
 import {
 	BrandStyled,
@@ -11,7 +12,6 @@ import {
 	NavLinkStyled,
 	NavLinksStyled,
 	TopNavStyled,
-	WmStyled,
 } from "./styled";
 
 export interface INavItem {
@@ -20,23 +20,22 @@ export interface INavItem {
 }
 
 interface IHeaderProps {
-	// Nav items, brand, and CTA come from the page or a content module, so no
-	// copy is baked into the layout.
-	brand: ReactNode;
+	// The brand logo URL (from settings), nav items, and CTA come from the page or
+	// a content module, so no copy is baked into the layout.
+	logoUrl: string;
 	items: INavItem[];
 	activeHref?: string;
 	cta: INavItem;
 }
 
-export default function Header({ brand, items, activeHref, cta }: IHeaderProps) {
+export default function Header({ logoUrl, items, activeHref, cta }: IHeaderProps) {
 	const [open, setOpen] = useState(false);
 
 	return (
 		<HeaderStyled>
 			<TopNavStyled>
 				<BrandStyled>
-					<WmStyled aria-hidden="true" />
-					{brand}
+					<BrandLogo src={logoUrl} />
 				</BrandStyled>
 				<NavLinksStyled>
 					{items.map((item) => (
@@ -59,8 +58,7 @@ export default function Header({ brand, items, activeHref, cta }: IHeaderProps) 
 
 			<MBarStyled>
 				<BrandStyled>
-					<WmStyled aria-hidden="true" />
-					{brand}
+					<BrandLogo src={logoUrl} />
 				</BrandStyled>
 				<MenuBtnStyled type="button" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
 					<span />

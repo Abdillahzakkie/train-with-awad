@@ -1,11 +1,14 @@
 "use client";
 
 import { startRegistration } from "@simplewebauthn/browser";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useSWR from "swr";
 import { api, fetcher } from "@/constants";
 import { AdminButton, AdminCard, AdminField, AdminInput, AdminModal, AdminNotice, PageHeader } from "@/libs/adminUi";
-import { IntroStyled, PasskeyListStyled } from "./styled";
+import { IntroStyled, LogoPreviewStyled, PasskeyListStyled } from "./styled";
+
+// Matches DEFAULT_LOGO_URL on the server; used for the preview and the reset.
+const DEFAULT_LOGO = "/brand/logo.jpg";
 
 interface IPasskey {
 	id: string;
@@ -49,12 +52,13 @@ export default function AdminSettingsWrapper() {
 	const passkeys = data?.items ?? [];
 
 	const { data: settingsData, mutate: mutateSettings } = useSWR<{
-		settings: { coachNotifyEmail: string; emailFrom: string };
+		settings: { coachNotifyEmail: string; emailFrom: string; logoUrl: string };
 	}>("/api/admin/settings", fetcher);
 	const settings = settingsData?.settings;
-	const [draft, setDraft] = useState<{ coachNotifyEmail: string; emailFrom: string } | null>(null);
-	const emails = draft ?? settings ?? { coachNotifyEmail: "", emailFrom: "" };
+	const [draft, setDraft] = useState<{ coachNotifyEmail: string; emailFrom: string; logoUrl: string } | null>(null);
+	const emails = draft ?? settings ?? { coachNotifyEmail: "", emailFrom: "", logoUrl: "" };
 	const editEmails = (patch: Partial<typeof emails>) => setDraft({ ...emails, ...patch });
+	const [logoBusy, setLogoBusy] = useState(false);
 
 	const [adding, setAdding] = useState(false);
 	const [error, setError] = useState("");
@@ -110,6 +114,25 @@ export default function AdminSettingsWrapper() {
 			setError("Couldn't save. Check the email address and try again.");
 		} finally {
 			setBusy(false);
+		}
+	};
+
+	const logoInputRef = useRef<HTMLInputElement>(null);
+
+	const uploadLogo = async (file: File) => {
+		setError("");
+		setNotice("");
+		setLogoBusy(true);
+		try {
+			const form = new FormData();
+			form.append("file", file);
+			const res = await api().post<{ url: string }>("/api/admin/upload", form);
+			editEmails({ logoUrl: res.data.url });
+			setNotice("Logo uploaded. Save to apply it across the site.");
+		} catch {
+			setError("That upload didn't work. Use a PNG, JPG, or SVG image.");
+		} finally {
+			setLogoBusy(false);
 		}
 	};
 
@@ -175,6 +198,40 @@ export default function AdminSettingsWrapper() {
 
 				<AdminButton variant="primary" onClick={addDevice} disabled={adding}>
 					{adding ? "Waiting for your device…" : "Add this device"}
+				</AdminButton>
+			</AdminCard>
+
+			<AdminCard title="Branding">
+				<IntroStyled>
+					Your logo, shown in the site header, across the admin, and on the sign-in page. A wide logo on a
+					dark background works best. Upload a PNG, JPG, or SVG, then save.
+				</IntroStyled>
+				<LogoPreviewStyled>
+					<img src={emails.logoUrl || DEFAULT_LOGO} alt="Current logo" />
+				</LogoPreviewStyled>
+				<div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+					<AdminButton variant="primary" onClick={() => logoInputRef.current?.click()} disabled={logoBusy}>
+						{logoBusy ? "Uploading…" : "Upload a logo"}
+					</AdminButton>
+					{emails.logoUrl && emails.logoUrl !== DEFAULT_LOGO && (
+						<AdminButton variant="secondary" onClick={() => editEmails({ logoUrl: DEFAULT_LOGO })}>
+							Use default
+						</AdminButton>
+					)}
+				</div>
+				<input
+					ref={logoInputRef}
+					type="file"
+					accept="image/*"
+					hidden
+					onChange={(e) => {
+						const file = e.target.files?.[0];
+						if (file) uploadLogo(file);
+						e.target.value = "";
+					}}
+				/>
+				<AdminButton variant="primary" onClick={saveSettings} disabled={busy || draft === null}>
+					Save
 				</AdminButton>
 			</AdminCard>
 

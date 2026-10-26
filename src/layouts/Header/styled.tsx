@@ -15,14 +15,6 @@ export const BrandStyled = styled.span`
 	letter-spacing: -0.015em;
 `;
 
-export const WmStyled = styled.span`
-	width: 28px;
-	height: 28px;
-	border-radius: 8px;
-	background: var(--tw-accent);
-	flex: none;
-`;
-
 // The desktop top bar: brand, nav links, one primary CTA. Hidden on a phone.
 export const TopNavStyled = styled.div`
 	display: none;
