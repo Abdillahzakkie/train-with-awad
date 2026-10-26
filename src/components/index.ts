@@ -9,6 +9,7 @@ export { default as Faq } from "./Faq";
 export { default as FaqItem } from "./FaqItem";
 export { default as Field } from "./Field";
 export { default as FieldError } from "./FieldError";
+export { default as Grid } from "./Grid";
 export { default as Hero } from "./Hero";
 export { default as Hint } from "./Hint";
 export { default as Input } from "./Input";
