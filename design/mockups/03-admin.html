@@ -362,6 +362,77 @@
   </figure>
 </div>
 
+<!-- ============================================================== SETTINGS -->
+<h2 class="surface">Settings</h2>
+<p class="sub">How you sign in, and the non-secret email settings the admin can
+   change without a redeploy. Real secrets stay in the deployment's environment.</p>
+
+<div class="sheet">
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">adm-settings</span>
+      <span class="snm">Settings</span>
+      <span class="spu">/admin/settings — passkeys, and the editable notification emails</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk admin">
+      <div class="a-shell">
+        <aside class="a-rail">
+          <span class="a-brand"><span class="wm"></span> Train With Awad</span>
+          <nav class="a-nav">
+            <a><span class="ic"></span> Dashboard</a>
+            <a><span class="ic"></span> Pages &amp; text</a>
+            <a><span class="ic"></span> Ebooks</a>
+            <a><span class="ic"></span> Testimonials</a>
+            <a><span class="ic"></span> FAQ</a>
+            <a><span class="ic"></span> Coaching plans</a>
+            <a><span class="ic"></span> Enquiries</a>
+            <a><span class="ic"></span> Orders</a>
+            <a><span class="ic"></span> Images</a>
+            <a class="on"><span class="ic"></span> Settings</a>
+            <a><span class="ic"></span> Team &amp; access</a>
+          </nav>
+          <div class="a-user">
+            <span class="av">A</span>
+            <span><span class="nm">Awad</span><br><span class="em">coach@trainwithawad.local</span></span>
+          </div>
+        </aside>
+        <main class="a-main pcontent">
+          <div class="a-inner">
+            <header class="a-phead">
+              <div>
+                <h1>Settings</h1>
+                <p>Manage how you sign in, and where emails are sent.</p>
+              </div>
+            </header>
+            <div class="a-stack">
+              <div class="a-card">
+                <h2>Passkeys</h2>
+                <p style="color:var(--adm-ink-3);font-size:14px;margin:0 0 14px">A passkey lets you sign in with your fingerprint or face instead of a password.</p>
+                <button class="btn pri">Add this device</button>
+              </div>
+              <div class="a-card">
+                <h2>Notifications</h2>
+                <p style="color:var(--adm-ink-3);font-size:14px;margin:0 0 14px">Where enquiry and purchase emails are sent from and to. These override the deployment defaults.</p>
+                <div class="a-field">
+                  <label>Coach notification email</label>
+                  <div class="a-ctl">coach@trainwithawad.local</div>
+                </div>
+                <div class="a-field">
+                  <label>From email</label>
+                  <div class="a-ctl">Train With Awad &lt;hello@trainwithawad.com&gt;</div>
+                </div>
+                <button class="btn pri" style="margin-top:4px">Save</button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div></div>
+    <p class="fnote">Non-secret settings are edited here with env as the fallback;
+      secrets (Stripe, Resend, JWT, S3) never appear in the admin.</p>
+  </figure>
+</div>
+
 <!-- ============================================================ ON A PHONE -->
 <h2 class="surface">On a phone</h2>
 <p class="sub">The admin is desktop-first, but it has to work on a phone: the rail
