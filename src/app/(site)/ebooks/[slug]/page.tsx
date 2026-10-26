@@ -1,4 +1,4 @@
-import { Ebook, Hint, Price, Section } from "@/components";
+import { Hero, Hint, Price, Section } from "@/components";
 import { EBOOKS } from "@/content";
 import BuyButton from "@/libs/BuyButton";
 import type { Metadata } from "next";
@@ -38,6 +38,21 @@ const DETAIL: React.CSSProperties = {
 	flexDirection: "column",
 	gap: "var(--tw-gap)",
 };
+// A flat cover plate, drawn from tokens — never a real image placeholder with a
+// literal colour.
+const COVER: React.CSSProperties = {
+	flex: "0 0 300px",
+	aspectRatio: "3 / 4",
+	background: "var(--tw-surface-2)",
+	border: "1px solid var(--tw-line)",
+	borderRadius: "var(--tw-radius)",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	color: "var(--tw-text-4)",
+	fontSize: "var(--tw-fs-sm)",
+	fontWeight: 600,
+};
 
 export default async function EbookPage({ params }: IPageProps) {
 	const { slug } = await params;
@@ -61,20 +76,26 @@ export default async function EbookPage({ params }: IPageProps) {
 	};
 
 	return (
-		<Section eyebrow="Ebook">
-			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is serialized server-side from the trusted content module, never user input. */}
-			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-			<div style={LAYOUT}>
-				<Ebook title={ebook.title} blurb={ebook.blurb} cover="Cover" style={{ flex: "0 0 300px" }} />
-				<div style={DETAIL}>
-					<Price style={{ fontSize: "var(--tw-fs-xl)" }}>{price}</Price>
-					<BuyButton slug={ebook.slug} price={price} />
-					<Hint>
-						You pay by card on a secure page, not on this site. The download link arrives by email and works
-						for 24 hours.
-					</Hint>
+		<>
+			{/* The ebook title is the page's single h1, via Hero. */}
+			<Hero eyebrow="Ebook" title={ebook.title} lede={ebook.blurb} />
+			<Section>
+				{/* biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is serialized server-side from the trusted content module, never user input. */}
+				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+				<div style={LAYOUT}>
+					<div style={COVER} aria-hidden="true">
+						Cover
+					</div>
+					<div style={DETAIL}>
+						<Price style={{ fontSize: "var(--tw-fs-xl)" }}>{price}</Price>
+						<BuyButton slug={ebook.slug} price={price} />
+						<Hint>
+							You pay by card on a secure page, not on this site. The download link arrives by email and
+							works for 24 hours.
+						</Hint>
+					</div>
 				</div>
-			</div>
-		</Section>
+			</Section>
+		</>
 	);
 }
