@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { config } from "@/server/config";
 import type { IEmailMessage, TEbookSlug } from "@/types";
+import { getSettings } from "./settings";
 
 let client: Resend | null = null;
 
@@ -19,8 +20,10 @@ export async function sendEmail(message: IEmailMessage): Promise<{ ok: true }> {
 		console.info("[email] skipped (emailEnabled=false)", { to: message.to, subject: message.subject });
 		return { ok: true };
 	}
+	// The from address is an admin-editable setting (env is the fallback).
+	const { emailFrom } = await getSettings();
 	const { error } = await resend().emails.send({
-		from: config.EMAIL_FROM,
+		from: emailFrom,
 		to: message.to,
 		subject: message.subject,
 		html: message.html,
@@ -50,8 +53,10 @@ export async function notifyCoach(lead: INotifyCoachInput): Promise<{ ok: true }
 		lead.goal ? `Goal: ${lead.goal}` : null,
 		lead.source ? `Source: ${lead.source}` : null,
 	].filter(Boolean);
+	// Where enquiries land is an admin-editable setting (env is the fallback).
+	const { coachNotifyEmail } = await getSettings();
 	return sendEmail({
-		to: config.COACH_NOTIFY_EMAIL,
+		to: coachNotifyEmail,
 		subject: `New enquiry from ${lead.name}`,
 		html: `<p>${lines.join("<br>")}</p>`,
 	});

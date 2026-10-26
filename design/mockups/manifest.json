@@ -1,14 +1,14 @@
 {
   "note": "One entry per sid drawn in the contact sheets. The count is DERIVED by\ndesign/mockups/build-manifest.mjs, never typed — a manifest that disagrees\nwith the sheets is worse than no manifest, because it is believed.\n\nA row reads \"implemented\" with its route when a screen answers the frame,\nand \"omitted\" otherwise. Every frame is one web screen drawn at two widths,\nphone and desk, so platform is \"web\" and device is \"responsive\".\n\nRe-run after changing any sheet: node design/mockups/build-manifest.mjs",
   "generated": "2026-10-26",
-  "total": 34,
+  "total": 35,
   "perSheet": {
     "01-marketing.html": 20,
     "02-shop.html": 9,
-    "03-admin.html": 5
+    "03-admin.html": 6
   },
   "byStatus": {
-    "omitted": 34
+    "omitted": 35
   },
   "frames": [
     {
@@ -399,6 +399,18 @@
       "sid": "adm-invite",
       "name": "Invite teammate",
       "purpose": "/admin/team — the add-a-person dialog over the table",
+      "sheet": "03-admin.html",
+      "surface": "admin",
+      "platform": "web",
+      "device": "responsive",
+      "status": "omitted",
+      "reason": "No screen answers this frame yet.",
+      "route": null
+    },
+    {
+      "sid": "adm-settings",
+      "name": "Settings",
+      "purpose": "/admin/settings — passkeys, and the editable notification emails",
       "sheet": "03-admin.html",
       "surface": "admin",
       "platform": "web",
