@@ -10,6 +10,7 @@
 		"lint": "biome check .",
 		"format": "biome format --write .",
 		"ts.check": "tsc --noEmit",
+		"seed": "tsx scripts/seed.ts",
 		"test": "vitest run",
 		"test.watch": "vitest",
 		"e2e": "playwright test"
