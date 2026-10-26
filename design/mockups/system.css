@@ -403,6 +403,16 @@ figcaption .spu {
 	background: var(--tw-accent);
 	flex: none;
 }
+/* Brand logo image. Replaces the old watermark-plus-text brand mark across the
+   public header, the admin rail and top bar, and the sign-in card. The default
+   logo is white artwork on black, so it blends on dark and reads as a chip on
+   the light admin. Mirrors the app's BrandLogo component. */
+.blogo {
+	display: block;
+	width: auto;
+	height: 28px;
+	border-radius: 6px;
+}
 .topnav .links {
 	display: flex;
 	align-items: center;

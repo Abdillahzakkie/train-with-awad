@@ -4,6 +4,7 @@ import { getSession } from "@/server/auth";
 import { connectToDatabase } from "@/server/db/connect";
 import { getEffectivePermissions } from "@/server/iam";
 import { AdminUser } from "@/server/models/AdminUser";
+import { getSettings } from "@/server/services/settings";
 import AdminShell from "./_shell";
 
 // The authed area reads the session per request. The middleware already gates
@@ -21,9 +22,10 @@ export default async function AdminLayout({ children }: { children: ReactNode })
 		name: (record as { name?: string } | null)?.name ?? "Admin",
 		email: session.email,
 	};
+	const { logoUrl } = await getSettings();
 
 	return (
-		<AdminShell user={user} perms={perms}>
+		<AdminShell user={user} perms={perms} logoUrl={logoUrl}>
 			{children}
 		</AdminShell>
 	);

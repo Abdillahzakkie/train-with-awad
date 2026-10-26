@@ -24,13 +24,6 @@ export const RailStyled = styled.nav`
 		letter-spacing: -0.015em;
 		color: var(--adm-ink);
 	}
-	.wm {
-		width: 28px;
-		height: 28px;
-		border-radius: 8px;
-		background: var(--adm-accent);
-		flex: none;
-	}
 	.rentry {
 		display: flex;
 		align-items: center;
@@ -201,13 +194,6 @@ export const TopBarStyled = styled.header`
 			font-weight: 800;
 			letter-spacing: -0.015em;
 			color: var(--adm-ink);
-		}
-		.wm {
-			width: 26px;
-			height: 26px;
-			border-radius: 7px;
-			background: var(--adm-accent);
-			flex: none;
 		}
 		.menu {
 			margin-left: auto;

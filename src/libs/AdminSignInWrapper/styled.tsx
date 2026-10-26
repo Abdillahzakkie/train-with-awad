@@ -33,13 +33,6 @@ export const SignCard = styled.div`
 		letter-spacing: -0.015em;
 		color: var(--adm-ink);
 	}
-	.wm {
-		width: 32px;
-		height: 32px;
-		border-radius: 9px;
-		background: var(--adm-accent);
-		flex: none;
-	}
 	h1 {
 		margin: 0;
 		font-size: 22px;
