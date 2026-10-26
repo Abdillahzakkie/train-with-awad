@@ -40,5 +40,8 @@
 		"typescript": "5.7.3",
 		"vitest": "2.1.8"
 	},
-	"packageManager": "pnpm@11.23.0"
+	"packageManager": "pnpm@11.23.0",
+	"pnpm": {
+		"onlyBuiltDependencies": ["@biomejs/biome", "esbuild", "sharp"]
+	}
 }
