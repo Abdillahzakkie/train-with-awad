@@ -41,7 +41,9 @@ afterAll(dropAndDisconnect);
 describe("POST /api/leads (integration)", () => {
 	it("200 {ok:true} and persists a Lead for a valid body", async () => {
 		const before = await Lead.countDocuments();
-		const res = await POST(postRequest(JSON.stringify({ name: "Route Tester", email: "route@example.com", mode: "online" })));
+		const res = await POST(
+			postRequest(JSON.stringify({ name: "Route Tester", email: "route@example.com", mode: "online" })),
+		);
 
 		expect(res.status).toBe(200);
 		await expect(res.json()).resolves.toEqual({ ok: true });
