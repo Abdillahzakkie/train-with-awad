@@ -57,7 +57,7 @@ export const adminLight = css`
 	--adm-ctl-h: 48px;
 	--adm-ctl-h-lg: 56px;
 	--adm-gap: 16px;
-	--adm-pad: 20px;
+	--adm-pad: 24px;
 
 	color-scheme: light;
 	background: var(--adm-bg);
