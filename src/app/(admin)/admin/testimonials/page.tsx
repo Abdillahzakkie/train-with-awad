@@ -1,5 +1,5 @@
-import AdminTestimonialsWrapper from "@/libs/AdminTestimonialsWrapper";
 import type { Metadata } from "next";
+import AdminTestimonialsWrapper from "@/libs/AdminTestimonialsWrapper";
 
 export const metadata: Metadata = {
 	title: "Testimonials — Admin",

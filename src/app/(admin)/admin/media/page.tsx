@@ -1,5 +1,5 @@
-import AdminMediaWrapper from "@/libs/AdminMediaWrapper";
 import type { Metadata } from "next";
+import AdminMediaWrapper from "@/libs/AdminMediaWrapper";
 
 export const metadata: Metadata = {
 	title: "Media — Admin",

@@ -17,9 +17,9 @@ import {
 	PageHeaderStyled,
 	type TAdminSize,
 	type TAdminVariant,
-	type TTone,
 	TableStyled,
 	ToggleRowStyled,
+	type TTone,
 } from "./styled";
 
 export * from "./styled";

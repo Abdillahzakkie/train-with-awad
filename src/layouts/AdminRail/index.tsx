@@ -1,6 +1,5 @@
 "use client";
 
-import { type TPermissions, type TResource, can } from "@/constants/iam";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import {
@@ -16,6 +15,7 @@ import {
 	FiStar,
 	FiUsers,
 } from "react-icons/fi";
+import { can, type TPermissions, type TResource } from "@/constants/iam";
 import { RailStyled } from "./styled";
 
 export interface IAdminNavItem {

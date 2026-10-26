@@ -1,5 +1,5 @@
-import AdminLeadsWrapper from "@/libs/AdminLeadsWrapper";
 import type { Metadata } from "next";
+import AdminLeadsWrapper from "@/libs/AdminLeadsWrapper";
 
 export const metadata: Metadata = {
 	title: "Enquiries — Admin",

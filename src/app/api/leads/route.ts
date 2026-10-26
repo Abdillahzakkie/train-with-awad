@@ -1,7 +1,7 @@
+import { NextResponse } from "next/server";
 import { ServiceError } from "@/server/errors";
 import { createLead } from "@/server/services/leads";
 import { leadSchema } from "@/server/validators/lead";
-import { NextResponse } from "next/server";
 
 // POST a new enquiry. Validate against the shared schema, record the lead, and
 // notify the coach. A failed notification does not fail the request — the lead

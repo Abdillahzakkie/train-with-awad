@@ -1,5 +1,5 @@
-import AdminFaqWrapper from "@/libs/AdminFaqWrapper";
 import type { Metadata } from "next";
+import AdminFaqWrapper from "@/libs/AdminFaqWrapper";
 
 export const metadata: Metadata = {
 	title: "FAQ — Admin",

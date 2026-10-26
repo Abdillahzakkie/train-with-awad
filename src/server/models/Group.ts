@@ -1,4 +1,4 @@
-import mongoose, { type HydratedDocument, type InferSchemaType, type Model, Schema, model } from "mongoose";
+import mongoose, { type HydratedDocument, type InferSchemaType, type Model, model, Schema } from "mongoose";
 
 // A group binds policies to admin users. A user's effective permissions are the
 // merge of every policy across every group they belong to.

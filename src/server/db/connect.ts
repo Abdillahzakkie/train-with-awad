@@ -1,5 +1,5 @@
-import { config } from "@/server/config";
 import mongoose from "mongoose";
+import { config } from "@/server/config";
 
 interface IMongooseCache {
 	conn: typeof mongoose | null;

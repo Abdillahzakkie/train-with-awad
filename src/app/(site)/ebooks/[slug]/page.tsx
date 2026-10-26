@@ -1,9 +1,9 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Hero, Hint, Price, Section } from "@/components";
 import { EBOOKS } from "@/content";
 import BuyButton from "@/libs/BuyButton";
 import { getEbooks } from "@/server/data";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 
 // The body renders live from the database; generateStaticParams reads the
 // static catalogue so the build needs no database.

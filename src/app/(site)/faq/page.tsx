@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import SiteRenderer from "@/libs/SiteRenderer";
 import { getFaqs, getSiteContent } from "@/server/data";
-import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 

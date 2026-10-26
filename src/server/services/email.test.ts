@@ -1,5 +1,5 @@
-import { notifyCoach, sendEmail } from "@/server/services/email";
 import { describe, expect, it, vi } from "vitest";
+import { notifyCoach, sendEmail } from "@/server/services/email";
 
 // The test env uses a placeholder Resend key, so emailEnabled is false: a send
 // logs what it would deliver and returns ok, never reaching the network.

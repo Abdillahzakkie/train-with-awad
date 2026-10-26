@@ -1,8 +1,8 @@
+import { NextResponse } from "next/server";
+import type Stripe from "stripe";
 import { config } from "@/server/config";
 import { fulfilOrder } from "@/server/services/orders";
 import { constructWebhookEvent } from "@/server/services/stripe";
-import { NextResponse } from "next/server";
-import type Stripe from "stripe";
 
 // Stripe confirms payment here. Verify the signature against the raw body, then
 // fulfil a completed checkout: write one order and email the download link.

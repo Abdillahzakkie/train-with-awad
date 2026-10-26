@@ -1,6 +1,6 @@
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { ServiceError } from "@/server/errors";
 import { mintDownloadToken, verifyDownloadToken } from "@/server/services/downloadToken";
-import { afterEach, describe, expect, it, vi } from "vitest";
 
 describe("downloadToken", () => {
 	afterEach(() => {

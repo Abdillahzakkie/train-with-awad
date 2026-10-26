@@ -1,8 +1,8 @@
 "use client";
 
+import useSWR from "swr";
 import { fetcher } from "@/constants";
 import { AdminButton, AdminCard, AdminGrid, AdminNotice, PageHeader } from "@/libs/adminUi";
-import useSWR from "swr";
 
 interface ICounts {
 	ebooks: number;

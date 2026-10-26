@@ -1,5 +1,5 @@
-import { Button, Failure, Section } from "@/components";
 import type { Metadata } from "next";
+import { Button, Failure, Section } from "@/components";
 
 export const metadata: Metadata = {
 	title: "Download link expired — Train With Awad",

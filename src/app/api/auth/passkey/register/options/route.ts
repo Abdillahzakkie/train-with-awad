@@ -1,11 +1,11 @@
+import { type AuthenticatorTransport, generateRegistrationOptions } from "@simplewebauthn/server";
+import { isoUint8Array } from "@simplewebauthn/server/helpers";
+import { NextResponse } from "next/server";
 import { requireAdmin } from "@/server/auth";
 import { connectToDatabase } from "@/server/db/connect";
 import { AdminUser } from "@/server/models/AdminUser";
 import { Passkey } from "@/server/models/Passkey";
 import { rpID, rpName, setChallenge } from "@/server/webauthn";
-import { type AuthenticatorTransportFuture, generateRegistrationOptions } from "@simplewebauthn/server";
-import { isoUint8Array } from "@simplewebauthn/server/helpers";
-import { NextResponse } from "next/server";
 
 export async function POST() {
 	let session: Awaited<ReturnType<typeof requireAdmin>>;
@@ -26,7 +26,7 @@ export async function POST() {
 		userID: isoUint8Array.fromUTF8String(String(user._id)),
 		excludeCredentials: existing.map((p) => ({
 			id: p.credentialId,
-			transports: p.transports as AuthenticatorTransportFuture[],
+			transports: p.transports as AuthenticatorTransport[],
 		})),
 		authenticatorSelection: { residentKey: "preferred", userVerification: "preferred" },
 	});

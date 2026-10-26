@@ -1,6 +1,6 @@
 import "server-only";
-import { type TAccess, type TResource, requirePermission } from "@/server/iam";
 import { NextResponse } from "next/server";
+import { requirePermission, type TAccess, type TResource } from "@/server/iam";
 
 // The single entry point the admin CRUD routes call at the top of every handler:
 // returns {session, perms} or throws a 401/403 Response for errorResponse to return.

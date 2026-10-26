@@ -17,4 +17,4 @@ export const objectExists = (key: string) => provider.exists(key);
 export const copyObject = (srcKey: string, destKey: string) => provider.copy(srcKey, destKey);
 export const getObjectStream = (key: string) => provider.getStream(key);
 
-export type { TMediaKind, IStorageObject } from "./types";
+export type { IStorageObject, TMediaKind } from "./types";

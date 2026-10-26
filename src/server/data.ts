@@ -21,6 +21,16 @@ interface ListOpts {
 	publishedOnly?: boolean;
 }
 
+// The public shape of each record: the content-module fields plus the stored id,
+// order, and status. Mongoose 9's lean() types the DB branch as a union TS can't
+// narrow, so each getter casts its cleaned docs to these (the runtime shape is
+// identical — clean() strips _id/__v/timestamps, leaving exactly these fields).
+type Status = "Draft" | "Published";
+export type PublicEbook = (typeof EBOOKS)[number] & { id: string; order: number; status: Status };
+export type PublicTestimonial = (typeof TESTIMONIALS)[number] & { id: string; order: number; status: Status };
+export type PublicFaq = (typeof FAQS)[number] & { id: string; order: number; status: Status };
+export type PublicPlan = (typeof PLANS)[number] & { id: string; order: number; status: Status; featured: boolean };
+
 /** The editable page copy, falling back to DEFAULT_SITE_CONTENT when none is stored. */
 export async function getSiteContent(): Promise<SiteContentData> {
 	await connectToDatabase();
@@ -28,43 +38,43 @@ export async function getSiteContent(): Promise<SiteContentData> {
 	return (doc?.data as SiteContentData) ?? DEFAULT_SITE_CONTENT;
 }
 
-export async function getEbooks(opts: ListOpts = {}) {
+export async function getEbooks(opts: ListOpts = {}): Promise<PublicEbook[]> {
 	await connectToDatabase();
-	const q = opts.publishedOnly ? { status: "Published" } : {};
+	const q = opts.publishedOnly ? { status: "Published" as const } : {};
 	const docs = await Ebook.find(q).sort({ order: 1, createdAt: -1 }).lean();
 	if (docs.length > 0) {
-		return docs.map(clean);
+		return docs.map(clean) as unknown as PublicEbook[];
 	}
 	// Empty collection: render the content seed so the public site works pre-seed.
 	return EBOOKS.map((e, i) => ({ id: e.slug, ...e, order: i, status: "Published" as const }));
 }
 
-export async function getTestimonials(opts: ListOpts = {}) {
+export async function getTestimonials(opts: ListOpts = {}): Promise<PublicTestimonial[]> {
 	await connectToDatabase();
-	const q = opts.publishedOnly ? { status: "Published" } : {};
+	const q = opts.publishedOnly ? { status: "Published" as const } : {};
 	const docs = await Testimonial.find(q).sort({ order: 1, createdAt: -1 }).lean();
 	if (docs.length > 0) {
-		return docs.map(clean);
+		return docs.map(clean) as unknown as PublicTestimonial[];
 	}
 	return TESTIMONIALS.map((t, i) => ({ id: String(i), ...t, order: i, status: "Published" as const }));
 }
 
-export async function getFaqs(opts: ListOpts = {}) {
+export async function getFaqs(opts: ListOpts = {}): Promise<PublicFaq[]> {
 	await connectToDatabase();
-	const q = opts.publishedOnly ? { status: "Published" } : {};
+	const q = opts.publishedOnly ? { status: "Published" as const } : {};
 	const docs = await Faq.find(q).sort({ order: 1, createdAt: -1 }).lean();
 	if (docs.length > 0) {
-		return docs.map(clean);
+		return docs.map(clean) as unknown as PublicFaq[];
 	}
 	return FAQS.map((f, i) => ({ id: String(i), ...f, order: i, status: "Published" as const }));
 }
 
-export async function getPlans(opts: ListOpts = {}) {
+export async function getPlans(opts: ListOpts = {}): Promise<PublicPlan[]> {
 	await connectToDatabase();
-	const q = opts.publishedOnly ? { status: "Published" } : {};
+	const q = opts.publishedOnly ? { status: "Published" as const } : {};
 	const docs = await Plan.find(q).sort({ order: 1, createdAt: -1 }).lean();
 	if (docs.length > 0) {
-		return docs.map(clean);
+		return docs.map(clean) as unknown as PublicPlan[];
 	}
 	return PLANS.map((p, i) => ({
 		id: String(i),
@@ -74,8 +84,3 @@ export async function getPlans(opts: ListOpts = {}) {
 		status: "Published" as const,
 	}));
 }
-
-export type PublicEbook = Awaited<ReturnType<typeof getEbooks>>[number];
-export type PublicTestimonial = Awaited<ReturnType<typeof getTestimonials>>[number];
-export type PublicFaq = Awaited<ReturnType<typeof getFaqs>>[number];
-export type PublicPlan = Awaited<ReturnType<typeof getPlans>>[number];

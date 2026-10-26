@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import { PCtaStyled, PDescStyled, PFeatStyled, PNameStyled, PPriceStyled, PTagStyled, PlanStyled } from "./styled";
+import { PCtaStyled, PDescStyled, PFeatStyled, PlanStyled, PNameStyled, PPriceStyled, PTagStyled } from "./styled";
 
 interface IPlanProps extends ComponentPropsWithoutRef<"div"> {
 	name: ReactNode;

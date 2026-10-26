@@ -1,5 +1,5 @@
-import AdminOrdersWrapper from "@/libs/AdminOrdersWrapper";
 import type { Metadata } from "next";
+import AdminOrdersWrapper from "@/libs/AdminOrdersWrapper";
 
 export const metadata: Metadata = {
 	title: "Orders — Admin",

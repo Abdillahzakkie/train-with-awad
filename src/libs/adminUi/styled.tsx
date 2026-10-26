@@ -1,7 +1,7 @@
 "use client";
 
-import { adminLight } from "@/libs/adminTheme";
 import styled, { css } from "styled-components";
+import { adminLight } from "@/libs/adminTheme";
 
 export type TAdminVariant = "primary" | "secondary" | "danger";
 export type TAdminSize = "md" | "lg";

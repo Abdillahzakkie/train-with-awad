@@ -1,5 +1,5 @@
-import { Button, Empty, Section } from "@/components";
 import type { Metadata } from "next";
+import { Button, Empty, Section } from "@/components";
 
 export const metadata: Metadata = {
 	title: "Page not found",

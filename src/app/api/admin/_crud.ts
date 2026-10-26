@@ -1,7 +1,7 @@
 import "server-only";
+import type { Model } from "mongoose";
 import { connectToDatabase } from "@/server/db/connect";
 import type { TResource } from "@/server/iam";
-import type { Model } from "mongoose";
 import { errorResponse, guard } from "./_guard";
 
 // Shared CRUD factory for the admin collections (ebooks/testimonials/faq/plans),

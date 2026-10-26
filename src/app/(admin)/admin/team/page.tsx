@@ -1,5 +1,5 @@
-import AdminTeamWrapper from "@/libs/AdminTeamWrapper";
 import type { Metadata } from "next";
+import AdminTeamWrapper from "@/libs/AdminTeamWrapper";
 
 export const metadata: Metadata = {
 	title: "Team & access — Admin",

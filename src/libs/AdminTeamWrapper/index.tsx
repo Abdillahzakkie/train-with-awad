@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import useSWR from "swr";
 import { api, fetcher } from "@/constants";
 import {
 	AdminBadge,
@@ -13,8 +15,6 @@ import {
 	AdminToggle,
 	PageHeader,
 } from "@/libs/adminUi";
-import { useState } from "react";
-import useSWR from "swr";
 
 type TRole = "Owner" | "Editor" | "Viewer";
 const ROLES: TRole[] = ["Owner", "Editor", "Viewer"];

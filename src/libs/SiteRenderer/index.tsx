@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import {
 	Button,
 	Card,
@@ -18,7 +19,6 @@ import {
 import ContactWrapper from "@/libs/ContactWrapper";
 import type { PublicEbook, PublicFaq, PublicPlan, PublicTestimonial } from "@/server/data";
 import type { ISitePage, ISiteSection } from "@/types";
-import { Fragment, type ReactNode } from "react";
 
 // Renders a page from the editable content model: sections in `order`, with
 // `visible:false` skipped, each `type` mapped to the existing component and its

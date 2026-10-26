@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import AdminContentWrapper from "@/libs/AdminContentWrapper";
 import { getSiteContent } from "@/server/data";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
 	title: "Site content — Admin",
