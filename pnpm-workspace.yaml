@@ -5,3 +5,8 @@ allowBuilds:
   '@biomejs/biome': true
   esbuild: true
   sharp: true
+
+# Force a patched uuid (imagekit@6 pulls uuid@8.3.2, which has a moderate
+# advisory — missing buffer bounds check). imagekit only uses v4(), unchanged.
+overrides:
+  uuid: 11.1.1
