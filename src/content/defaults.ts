@@ -6,7 +6,7 @@
 //
 // Section `type` values used here:
 //   hero, plans, steps, features, stats, ebookTeaser, priceCard, legalBody,
-//   quotes, faqList, contactForm
+//   quotes, leadQuote, faqList, contactForm
 // A section renders its `fields` by type; reordering sections or flipping
 // `visible` changes what shows and where, with no code change.
 
@@ -26,7 +26,11 @@ const home: ISitePage = {
 		section("hero", "hero", 0, { ...HOME_CONTENT.hero }),
 		section("ways-to-train", "plans", 1, { ...HOME_CONTENT.waysToTrain }),
 		section("how-it-works", "steps", 2, { ...HOME_CONTENT.howItWorks }),
-		section("ebooks-teaser", "ebookTeaser", 3, { ...HOME_CONTENT.ebooksTeaser }),
+		// Empty fields: the renderer features the first published testimonial, so
+		// editing that testimonial updates the home lead-quote. Reorder or hide it
+		// here like any other section.
+		section("lead-quote", "leadQuote", 3, {}),
+		section("ebooks-teaser", "ebookTeaser", 4, { ...HOME_CONTENT.ebooksTeaser }),
 	],
 };
 
