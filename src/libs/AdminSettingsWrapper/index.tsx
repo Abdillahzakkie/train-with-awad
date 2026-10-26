@@ -4,7 +4,7 @@ import { startRegistration } from "@simplewebauthn/browser";
 import { useState } from "react";
 import useSWR from "swr";
 import { api, fetcher } from "@/constants";
-import { AdminButton, AdminCard, AdminModal, AdminNotice, PageHeader } from "@/libs/adminUi";
+import { AdminButton, AdminCard, AdminField, AdminInput, AdminModal, AdminNotice, PageHeader } from "@/libs/adminUi";
 import { IntroStyled, PasskeyListStyled } from "./styled";
 
 interface IPasskey {
@@ -48,6 +48,14 @@ export default function AdminSettingsWrapper() {
 	const { data, isLoading, mutate } = useSWR<{ items: IPasskey[] }>("/api/admin/passkeys", fetcher);
 	const passkeys = data?.items ?? [];
 
+	const { data: settingsData, mutate: mutateSettings } = useSWR<{
+		settings: { coachNotifyEmail: string; emailFrom: string };
+	}>("/api/admin/settings", fetcher);
+	const settings = settingsData?.settings;
+	const [draft, setDraft] = useState<{ coachNotifyEmail: string; emailFrom: string } | null>(null);
+	const emails = draft ?? settings ?? { coachNotifyEmail: "", emailFrom: "" };
+	const editEmails = (patch: Partial<typeof emails>) => setDraft({ ...emails, ...patch });
+
 	const [adding, setAdding] = useState(false);
 	const [error, setError] = useState("");
 	const [notice, setNotice] = useState("");
@@ -89,6 +97,22 @@ export default function AdminSettingsWrapper() {
 		}
 	};
 
+	const saveSettings = async () => {
+		setError("");
+		setNotice("");
+		setBusy(true);
+		try {
+			await api().put("/api/admin/settings", emails);
+			await mutateSettings();
+			setDraft(null);
+			setNotice("Saved. Emails will use these addresses from now on.");
+		} catch {
+			setError("Couldn't save. Check the email address and try again.");
+		} finally {
+			setBusy(false);
+		}
+	};
+
 	const confirmRemove = async () => {
 		if (!removing) return;
 		setBusy(true);
@@ -107,7 +131,7 @@ export default function AdminSettingsWrapper() {
 
 	return (
 		<>
-			<PageHeader title="Settings" subtitle="Manage how you sign in to the admin." />
+			<PageHeader title="Settings" subtitle="Manage how you sign in, and where emails are sent." />
 
 			{error && (
 				<AdminNotice tone="danger" onDismiss={() => setError("")}>
@@ -151,6 +175,31 @@ export default function AdminSettingsWrapper() {
 
 				<AdminButton variant="primary" onClick={addDevice} disabled={adding}>
 					{adding ? "Waiting for your device…" : "Add this device"}
+				</AdminButton>
+			</AdminCard>
+
+			<AdminCard title="Notifications">
+				<IntroStyled>
+					Where enquiry and purchase emails are sent from and to. These override the deployment defaults;
+					leave them as they are to keep those.
+				</IntroStyled>
+				<AdminField label="Coach notification email" htmlFor="set-coach">
+					<AdminInput
+						id="set-coach"
+						type="email"
+						value={emails.coachNotifyEmail}
+						onChange={(e) => editEmails({ coachNotifyEmail: e.target.value })}
+					/>
+				</AdminField>
+				<AdminField label="From email" htmlFor="set-from">
+					<AdminInput
+						id="set-from"
+						value={emails.emailFrom}
+						onChange={(e) => editEmails({ emailFrom: e.target.value })}
+					/>
+				</AdminField>
+				<AdminButton variant="primary" onClick={saveSettings} disabled={busy || draft === null}>
+					Save
 				</AdminButton>
 			</AdminCard>
 
