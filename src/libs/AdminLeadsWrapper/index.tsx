@@ -75,6 +75,7 @@ export default function AdminLeadsWrapper() {
 				/>
 			) : (
 				<AdminTable
+					columns={["From", "When", "Wants", "Status", "Actions"]}
 					head={
 						<tr>
 							<th>From</th>

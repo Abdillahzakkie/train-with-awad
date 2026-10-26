@@ -132,6 +132,7 @@ export default function AdminPlansWrapper() {
 				</AdminEmpty>
 			) : (
 				<AdminTable
+					columns={["Plan", "Price", "Featured", "Shown", "Order", "Actions"]}
 					head={
 						<tr>
 							<th>Plan</th>

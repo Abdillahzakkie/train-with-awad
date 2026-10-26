@@ -188,6 +188,18 @@ export const AdminTextareaStyled = styled.textarea`
 	resize: vertical;
 `;
 
+// The admin frame: rail beside the page on desktop, stacked under the top bar on
+// a phone (where the rail becomes a drawer, out of flow).
+export const AdminShellStyled = styled.div`
+	display: flex;
+	min-height: 100vh;
+	align-items: stretch;
+
+	@media (max-width: 820px) {
+		flex-direction: column;
+	}
+`;
+
 // The admin main area and its padded inner column. The main scrolls; the inner
 // keeps content off the top edge and within a readable width, so a page header's
 // action never jams the viewport corner (design/mockups 03-admin).
@@ -248,6 +260,82 @@ export const TableStyled = styled.div`
 		display: inline-flex;
 		gap: 8px;
 		flex-wrap: wrap;
+	}
+
+	/* On a phone a wide table would scroll sideways, so each row becomes a card
+	   and each cell a label/value line. Column labels come from --l1..--l6 set on
+	   the table (AdminTable's columns prop), so the header row can hide. Mirrors
+	   design/mockups .phone.admin .a-table. */
+	@media (max-width: 640px) {
+		border: 0;
+		background: transparent;
+		overflow: visible;
+
+		table {
+			display: block;
+		}
+		thead {
+			display: none;
+		}
+		tbody {
+			display: block;
+		}
+		tbody tr {
+			display: block;
+			border: 1px solid var(--adm-line);
+			border-radius: var(--adm-r);
+			background: var(--adm-surface);
+			padding: 4px 16px;
+			margin-bottom: 12px;
+		}
+		tbody tr:last-child {
+			margin-bottom: 0;
+		}
+		tbody tr:hover {
+			background: var(--adm-surface);
+		}
+		td {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			padding: 11px 0;
+			text-align: right;
+			border-bottom: 1px solid var(--adm-line);
+		}
+		tbody tr td:last-child {
+			border-bottom: 0;
+		}
+		td > * {
+			min-width: 0;
+		}
+		td::before {
+			flex: 0 0 auto;
+			font-size: 12px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			color: var(--adm-ink-3);
+			text-align: left;
+		}
+		td:nth-child(1)::before {
+			content: var(--l1, "");
+		}
+		td:nth-child(2)::before {
+			content: var(--l2, "");
+		}
+		td:nth-child(3)::before {
+			content: var(--l3, "");
+		}
+		td:nth-child(4)::before {
+			content: var(--l4, "");
+		}
+		td:nth-child(5)::before {
+			content: var(--l5, "");
+		}
+		td:nth-child(6)::before {
+			content: var(--l6, "");
+		}
 	}
 `;
 

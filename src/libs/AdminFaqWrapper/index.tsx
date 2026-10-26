@@ -95,6 +95,7 @@ export default function AdminFaqWrapper() {
 				</AdminEmpty>
 			) : (
 				<AdminTable
+					columns={["Question", "Shown", "Order", "Actions"]}
 					head={
 						<tr>
 							<th>Question</th>

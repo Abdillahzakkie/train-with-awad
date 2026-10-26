@@ -42,6 +42,7 @@ export default function AdminOrdersWrapper() {
 				<AdminEmpty title="No orders yet" description="When someone buys an ebook, their order appears here." />
 			) : (
 				<AdminTable
+					columns={["Ebook", "Buyer", "Amount", "When", "Delivery"]}
 					head={
 						<tr>
 							<th>Ebook</th>

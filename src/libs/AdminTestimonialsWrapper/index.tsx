@@ -113,6 +113,7 @@ export default function AdminTestimonialsWrapper() {
 				</AdminEmpty>
 			) : (
 				<AdminTable
+					columns={["From", "Rating", "Shown", "Order", "Actions"]}
 					head={
 						<tr>
 							<th>From</th>

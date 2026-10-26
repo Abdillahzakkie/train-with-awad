@@ -1675,6 +1675,75 @@ a.ebook:focus-visible,
 .admin .a-table tr:last-child td {
 	border-bottom: 0;
 }
+/* On a phone a wide table would scroll sideways, so each row becomes a card and
+   each cell a label/value line. The column labels come from --l1..--l6, set on
+   the table, so the header can hide. (The app mirrors this under a media query.) */
+.phone.admin .a-table {
+	border: 0;
+	background: transparent;
+	overflow: visible;
+}
+.phone.admin .a-table table,
+.phone.admin .a-table tbody {
+	display: block;
+	width: 100%;
+}
+.phone.admin .a-table thead {
+	display: none;
+}
+.phone.admin .a-table tr {
+	display: block;
+	border: 1px solid var(--adm-line);
+	border-radius: var(--adm-r);
+	background: var(--adm-surface);
+	padding: 4px 16px;
+	margin-bottom: 12px;
+}
+.phone.admin .a-table tr:last-child {
+	margin-bottom: 0;
+}
+.phone.admin .a-table td {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 11px 0;
+	text-align: right;
+	border-bottom: 1px solid var(--adm-line);
+}
+.phone.admin .a-table tr td:last-child {
+	border-bottom: 0;
+}
+.phone.admin .a-table td > * {
+	min-width: 0;
+}
+.phone.admin .a-table td::before {
+	flex: 0 0 auto;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--adm-ink-3);
+	text-align: left;
+}
+.phone.admin .a-table td:nth-child(1)::before {
+	content: var(--l1, "");
+}
+.phone.admin .a-table td:nth-child(2)::before {
+	content: var(--l2, "");
+}
+.phone.admin .a-table td:nth-child(3)::before {
+	content: var(--l3, "");
+}
+.phone.admin .a-table td:nth-child(4)::before {
+	content: var(--l4, "");
+}
+.phone.admin .a-table td:nth-child(5)::before {
+	content: var(--l5, "");
+}
+.phone.admin .a-table td:nth-child(6)::before {
+	content: var(--l6, "");
+}
 .admin .a-cellctl {
 	display: inline-flex;
 	gap: 8px;

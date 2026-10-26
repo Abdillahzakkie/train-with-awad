@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import type { TPermissions } from "@/constants/iam";
 import { ADMIN_SECTIONS, AdminRail } from "@/layouts";
-import { AdminInnerStyled, AdminMainStyled } from "@/libs/adminUi/styled";
+import { AdminInnerStyled, AdminMainStyled, AdminShellStyled } from "@/libs/adminUi/styled";
 
 // The authed admin frame: the sidebar beside the page. A thin client wrapper so
 // the sidebar can read the current path to highlight the active section; the
@@ -19,11 +19,11 @@ export default function AdminShell({
 }) {
 	const pathname = usePathname();
 	return (
-		<div style={{ display: "flex", minHeight: "100vh", alignItems: "stretch" }}>
+		<AdminShellStyled>
 			<AdminRail items={ADMIN_SECTIONS} activeHref={pathname} user={user} perms={perms} />
 			<AdminMainStyled>
 				<AdminInnerStyled>{children}</AdminInnerStyled>
 			</AdminMainStyled>
-		</div>
+		</AdminShellStyled>
 	);
 }
