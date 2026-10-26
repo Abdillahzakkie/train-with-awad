@@ -33,12 +33,11 @@ const stripeEnabled =
 	!env.STRIPE_SECRET_KEY.startsWith(PLACEHOLDER_PREFIXES.stripeSecret) &&
 	!env.STRIPE_WEBHOOK_SECRET.startsWith(PLACEHOLDER_PREFIXES.stripeWebhook);
 
-// A placeholder key is a development convenience only. Reject it in production
-// so a real deploy never silently skips payment or email.
-if (env.NODE_ENV === "production" && (!emailEnabled || !stripeEnabled)) {
-	throw new Error("Invalid server configuration: placeholder keys are not allowed when NODE_ENV=production");
-}
-
+// Placeholder keys are allowed in every environment, so the site deploys and
+// runs without real payment or email config. Each feature degrades on its own at
+// request time rather than blocking the build or the whole app: checkout and the
+// Stripe webhook throw StripeDisabledError (a 503) when Stripe is disabled, and
+// email sends are skipped when email is disabled. Set real keys to enable them.
 export const config = {
 	...env,
 	emailEnabled,
