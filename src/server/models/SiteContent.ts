@@ -1,4 +1,4 @@
-import mongoose, { type HydratedDocument, type InferSchemaType, type Model, Schema, model } from "mongoose";
+import mongoose, { type HydratedDocument, type InferSchemaType, type Model, model, Schema } from "mongoose";
 
 // One keyed document holding every editable page's copy as a free-form blob. Its
 // shape is the SiteContentData contract in @/types; Mixed keeps the schema flat

@@ -1,4 +1,4 @@
-import mongoose, { type HydratedDocument, type InferSchemaType, type Model, Schema, model } from "mongoose";
+import mongoose, { type HydratedDocument, type InferSchemaType, type Model, model, Schema } from "mongoose";
 
 // A reusable permission grant map held as a free-form document. `managedBy:
 // "system"` marks a seeded policy the API refuses to edit or delete.

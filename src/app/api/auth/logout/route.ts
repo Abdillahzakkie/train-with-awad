@@ -1,5 +1,5 @@
-import { endSession } from "@/server/auth";
 import { NextResponse } from "next/server";
+import { endSession } from "@/server/auth";
 
 export async function POST() {
 	await endSession();

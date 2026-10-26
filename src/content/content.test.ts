@@ -1,5 +1,5 @@
-import { EBOOKS, FAQS, PLANS, TESTIMONIALS } from "@/content";
 import { describe, expect, it } from "vitest";
+import { EBOOKS, FAQS, PLANS, TESTIMONIALS } from "@/content";
 
 describe("content modules", () => {
 	it("ships the three fixed ebooks with unique slugs and numeric prices", () => {

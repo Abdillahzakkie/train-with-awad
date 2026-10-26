@@ -1,6 +1,6 @@
+import { describe, expect, it } from "vitest";
 import { StripeDisabledError } from "@/server/errors";
 import { constructWebhookEvent, createCheckoutSession } from "@/server/services/stripe";
-import { describe, expect, it } from "vitest";
 
 // The test env uses placeholder Stripe keys, so stripeEnabled is false and every
 // call must refuse with the typed disabled error rather than reach Stripe.

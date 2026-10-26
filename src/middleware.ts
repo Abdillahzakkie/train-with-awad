@@ -1,5 +1,5 @@
-import { SESSION_COOKIE, verifySession } from "@/server/jwt";
 import { type NextRequest, NextResponse } from "next/server";
+import { SESSION_COOKIE, verifySession } from "@/server/jwt";
 
 // Gate every /admin page behind a valid session. /signin stays public (it is not
 // matched). Admin API mutations additionally check requirePermission() in-handler.

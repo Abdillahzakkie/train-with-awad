@@ -1,8 +1,8 @@
+import { NextResponse } from "next/server";
 import { EBOOKS } from "@/content";
 import { config } from "@/server/config";
 import { ServiceError } from "@/server/errors";
 import { verifyDownloadToken } from "@/server/services/downloadToken";
-import { NextResponse } from "next/server";
 
 // GET the ebook file behind a signed, time-limited token. A valid token
 // redirects to the file; an expired one sends the buyer to the page that offers

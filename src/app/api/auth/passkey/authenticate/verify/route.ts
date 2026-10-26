@@ -1,11 +1,11 @@
+import { type AuthenticatorTransport, verifyAuthenticationResponse } from "@simplewebauthn/server";
+import { isoBase64URL } from "@simplewebauthn/server/helpers";
+import { NextResponse } from "next/server";
 import { startSession } from "@/server/auth";
 import { connectToDatabase } from "@/server/db/connect";
 import { AdminUser } from "@/server/models/AdminUser";
 import { Passkey } from "@/server/models/Passkey";
 import { clearChallenge, getChallenge, origin, rpID } from "@/server/webauthn";
-import { type AuthenticatorTransportFuture, verifyAuthenticationResponse } from "@simplewebauthn/server";
-import { isoBase64URL } from "@simplewebauthn/server/helpers";
-import { NextResponse } from "next/server";
 
 const unauthorized = () => NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 				id: passkey.credentialId,
 				publicKey: isoBase64URL.toBuffer(passkey.publicKey),
 				counter: passkey.counter,
-				transports: passkey.transports as AuthenticatorTransportFuture[],
+				transports: passkey.transports as AuthenticatorTransport[],
 			},
 		});
 	} catch {

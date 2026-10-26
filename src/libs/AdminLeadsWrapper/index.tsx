@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { api } from "@/constants";
 import { useAdminCollection } from "@/libs/adminCollection";
 import {
@@ -12,7 +13,6 @@ import {
 	PageHeader,
 	type TTone,
 } from "@/libs/adminUi";
-import { useState } from "react";
 
 type TLeadStatus = "New" | "Handled";
 

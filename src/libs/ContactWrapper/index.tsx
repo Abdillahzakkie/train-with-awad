@@ -1,9 +1,9 @@
 "use client";
 
+import { type FormEvent, useState } from "react";
 import { Button, Failure, Field, FieldError, Hint, Input, Label, Success } from "@/components";
 import { useSubmitLead } from "@/hooks";
-import { type TLeadInput, leadSchema } from "@/server/validators/lead";
-import { type FormEvent, useState } from "react";
+import { leadSchema, type TLeadInput } from "@/server/validators/lead";
 import { FormStyled } from "./styled";
 
 type TMode = TLeadInput["mode"];

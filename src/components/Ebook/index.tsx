@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import { EBlurbStyled, EBodyStyled, ECoverStyled, EFootStyled, ETitleStyled, EbookStyled } from "./styled";
+import { EBlurbStyled, EBodyStyled, EbookStyled, ECoverStyled, EFootStyled, ETitleStyled } from "./styled";
 
 interface IEbookProps extends Omit<ComponentPropsWithoutRef<"div">, "title"> {
 	title: ReactNode;

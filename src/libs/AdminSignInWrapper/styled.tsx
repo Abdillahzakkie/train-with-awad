@@ -1,7 +1,7 @@
 "use client";
 
-import { adminLight } from "@/libs/adminTheme";
 import styled from "styled-components";
+import { adminLight } from "@/libs/adminTheme";
 
 export const SignInShell = styled.div`
 	${adminLight}

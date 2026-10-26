@@ -1,9 +1,9 @@
 "use client";
 
-import { api, fetcher } from "@/constants";
-import { AdminButton, AdminEmpty, AdminGridStyled, AdminModal, AdminNotice, PageHeader } from "@/libs/adminUi";
 import { type ChangeEvent, useRef, useState } from "react";
 import useSWR from "swr";
+import { api, fetcher } from "@/constants";
+import { AdminButton, AdminEmpty, AdminGridStyled, AdminModal, AdminNotice, PageHeader } from "@/libs/adminUi";
 import { MediaTileStyled } from "./styled";
 
 // One stored object, as GET /api/admin/upload returns it.

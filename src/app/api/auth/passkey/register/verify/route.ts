@@ -1,10 +1,10 @@
+import { verifyRegistrationResponse } from "@simplewebauthn/server";
+import { isoBase64URL } from "@simplewebauthn/server/helpers";
+import { NextResponse } from "next/server";
 import { requireAdmin } from "@/server/auth";
 import { connectToDatabase } from "@/server/db/connect";
 import { Passkey } from "@/server/models/Passkey";
 import { clearChallenge, getChallenge, origin, rpID } from "@/server/webauthn";
-import { verifyRegistrationResponse } from "@simplewebauthn/server";
-import { isoBase64URL } from "@simplewebauthn/server/helpers";
-import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
 	let session: Awaited<ReturnType<typeof requireAdmin>>;

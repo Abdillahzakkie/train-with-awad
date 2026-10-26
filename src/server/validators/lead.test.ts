@@ -1,5 +1,5 @@
-import { leadSchema } from "@/server/validators/lead";
 import { describe, expect, it } from "vitest";
+import { leadSchema } from "@/server/validators/lead";
 
 describe("leadSchema", () => {
 	const valid = { name: "Sam Lifter", email: "sam@example.com", mode: "online" as const };

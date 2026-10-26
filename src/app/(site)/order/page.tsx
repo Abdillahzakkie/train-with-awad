@@ -1,5 +1,5 @@
-import { Button, Section, Success } from "@/components";
 import type { Metadata } from "next";
+import { Button, Section, Success } from "@/components";
 
 export const metadata: Metadata = {
 	title: "Order complete — Train With Awad",

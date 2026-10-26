@@ -1,10 +1,10 @@
 // Shared types, re-exported from one barrel so the client and server import
 // from `@/types` rather than reaching into the server validators directly.
 
-export type { TLeadInput } from "@/server/validators/lead";
-export type { TCheckoutInput } from "@/server/validators/checkout";
 export type { TLeadDoc } from "@/server/models/Lead";
 export type { TOrderDoc } from "@/server/models/Order";
+export type { TCheckoutInput } from "@/server/validators/checkout";
+export type { TLeadInput } from "@/server/validators/lead";
 
 // Which coaching an enquiry is about.
 export type TCoachingMode = "online" | "in-person";

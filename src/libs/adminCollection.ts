@@ -1,7 +1,7 @@
 "use client";
 
-import { api, fetcher } from "@/constants";
 import useSWR from "swr";
+import { api, fetcher } from "@/constants";
 
 export interface IAdminItem {
 	id: string;

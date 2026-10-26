@@ -1,5 +1,5 @@
-import { Footer, Header, type IFooterColumn, type INavItem, SiteShell } from "@/layouts";
 import type { ReactNode } from "react";
+import { Footer, Header, type IFooterColumn, type INavItem, SiteShell } from "@/layouts";
 
 // The nav set, CTA, and footer columns live here, in the route-group layout, so
 // the kit layouts stay content-free. Legal sits in the footer, not the top nav.

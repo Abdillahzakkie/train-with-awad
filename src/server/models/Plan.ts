@@ -1,4 +1,4 @@
-import mongoose, { type HydratedDocument, type InferSchemaType, type Model, Schema, model } from "mongoose";
+import mongoose, { type HydratedDocument, type InferSchemaType, type Model, model, Schema } from "mongoose";
 
 // A "way to train" card, editable in the admin. Mirrors content/plans plus the
 // `order`/`status` fields every admin-managed collection carries.

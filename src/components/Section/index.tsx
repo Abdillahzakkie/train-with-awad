@@ -1,10 +1,10 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import {
-	SHeadStyled,
 	SectionBandStyled,
 	SectionInnerStyled,
 	SectionTitleStyled,
 	SeyebrowStyled,
+	SHeadStyled,
 	SsubStyled,
 } from "./styled";
 

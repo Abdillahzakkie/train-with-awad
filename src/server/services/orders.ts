@@ -1,10 +1,10 @@
+import type Stripe from "stripe";
 import { config } from "@/server/config";
 import { connectToDatabase } from "@/server/db/connect";
 import { ServiceError } from "@/server/errors";
 import { Order, type TOrderDoc } from "@/server/models/Order";
 import { mintDownloadToken } from "@/server/services/downloadToken";
 import { sendDownloadLink } from "@/server/services/email";
-import type Stripe from "stripe";
 
 // Mongo's duplicate-key error code, raised when the unique stripeSessionId index
 // rejects a second write.

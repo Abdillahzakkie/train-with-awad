@@ -1,8 +1,8 @@
 "use client";
 
+import useSWR from "swr";
 import { fetcher } from "@/constants";
 import { AdminBadge, AdminEmpty, AdminNotice, AdminTable, PageHeader } from "@/libs/adminUi";
-import useSWR from "swr";
 
 interface IOrder {
 	id: string;

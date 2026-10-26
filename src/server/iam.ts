@@ -1,12 +1,12 @@
 import "server-only";
 import {
+	can,
+	emptyPermissions,
+	mergeDocuments,
 	type TAccess,
 	type TPermissions,
 	type TPolicyDocument,
 	type TResource,
-	can,
-	emptyPermissions,
-	mergeDocuments,
 } from "@/constants/iam";
 import { requireAdmin } from "./auth";
 import { connectToDatabase } from "./db/connect";

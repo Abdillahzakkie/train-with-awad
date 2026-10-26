@@ -5,9 +5,6 @@ export { FAQS, type IFaq } from "./faq";
 export {
 	ABOUT_CONTENT,
 	HOME_CONTENT,
-	IN_PERSON_CONTENT,
-	LEGAL_CONTENT,
-	ONLINE_CONTENT,
 	type IAboutContent,
 	type IFeature,
 	type IHero,
@@ -15,10 +12,13 @@ export {
 	type IInPersonContent,
 	type ILegalContent,
 	type ILegalSection,
+	IN_PERSON_CONTENT,
 	type IOnlineContent,
 	type IPriceCard,
 	type IStat,
 	type IStep,
+	LEGAL_CONTENT,
+	ONLINE_CONTENT,
 } from "./pages";
-export { PLANS, type IPlan } from "./plans";
-export { TESTIMONIALS, type ITestimonial } from "./testimonials";
+export { type IPlan, PLANS } from "./plans";
+export { type ITestimonial, TESTIMONIALS } from "./testimonials";

@@ -1,7 +1,7 @@
-import { Ebook, Hero, Price, Section } from "@/components";
-import { getEbooks } from "@/server/data";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Ebook, Hero, Price, Section } from "@/components";
+import { getEbooks } from "@/server/data";
 
 // Rendered per request so the catalogue and prices stay live with the database.
 export const dynamic = "force-dynamic";

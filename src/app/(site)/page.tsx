@@ -1,6 +1,6 @@
+import type { Metadata } from "next";
 import SiteRenderer from "@/libs/SiteRenderer";
 import { getEbooks, getPlans, getSiteContent, getTestimonials } from "@/server/data";
-import type { Metadata } from "next";
 
 // Rendered per request so admin edits to content, order, and visibility show at
 // once, and the build never needs the database.

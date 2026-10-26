@@ -1,4 +1,4 @@
-import mongoose, { type HydratedDocument, type InferSchemaType, type Model, Schema, model } from "mongoose";
+import mongoose, { type HydratedDocument, type InferSchemaType, type Model, model, Schema } from "mongoose";
 
 // A registered WebAuthn credential for an admin, additive alongside the password
 // login. `counter` is the signature counter checked on each assertion.
