@@ -3,7 +3,8 @@ import { SESSION_COOKIE, verifySession } from "@/server/jwt";
 
 // Gate every /admin page behind a valid session. /signin stays public (it is not
 // matched). Admin API mutations additionally check requirePermission() in-handler.
-export async function middleware(req: NextRequest) {
+// Next 16 renamed the middleware convention to proxy (src/proxy.ts, export proxy).
+export async function proxy(req: NextRequest) {
 	const session = await verifySession(req.cookies.get(SESSION_COOKIE)?.value);
 	if (!session) {
 		const url = req.nextUrl.clone();
