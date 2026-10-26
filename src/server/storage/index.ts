@@ -1,11 +1,16 @@
 import "server-only";
+import { imagekitProvider } from "./imagekit";
 import { s3Provider } from "./s3";
 import type { IStorageProvider } from "./types";
 
-// One active provider. s3 covers S3 and MinIO; add an alternative here behind
-// STORAGE_PROVIDER if one is ever needed. The rest of the app imports the names
-// below and never knows which backend stores the bytes.
-const provider: IStorageProvider = s3Provider;
+/** The active provider, chosen by STORAGE_PROVIDER (default: s3/MinIO). */
+export function activeProvider(): "s3" | "imagekit" {
+	return process.env.STORAGE_PROVIDER === "imagekit" ? "imagekit" : "s3";
+}
+
+// s3 covers S3 and MinIO; imagekit is the alternative. The rest of the app
+// imports the names below and never knows which backend stores the bytes.
+const provider: IStorageProvider = activeProvider() === "imagekit" ? imagekitProvider : s3Provider;
 
 export const publicUrl = (key: string) => provider.publicUrl(key);
 export const ensureStorageReady = () => provider.ensureReady();
