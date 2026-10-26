@@ -133,6 +133,7 @@ export default function AdminEbooksWrapper() {
 				</AdminEmpty>
 			) : (
 				<AdminTable
+					columns={["Ebook", "Price", "On sale", "Order", "Actions"]}
 					head={
 						<tr>
 							<th>Ebook</th>

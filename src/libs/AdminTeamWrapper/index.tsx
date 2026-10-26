@@ -128,6 +128,7 @@ export default function AdminTeamWrapper() {
 				<AdminNotice tone="info">Loading your team…</AdminNotice>
 			) : (
 				<AdminTable
+					columns={["Name", "Email", "Role", "Can sign in", "Actions"]}
 					head={
 						<tr>
 							<th>Name</th>

@@ -1,6 +1,13 @@
 "use client";
 
-import { type ComponentPropsWithoutRef, type ElementType, type ReactNode, useEffect, useId } from "react";
+import {
+	type ComponentPropsWithoutRef,
+	type CSSProperties,
+	type ElementType,
+	type ReactNode,
+	useEffect,
+	useId,
+} from "react";
 import Select, { components, type OptionProps, type StylesConfig } from "react-select";
 import {
 	AdminButtonStyled,
@@ -230,13 +237,19 @@ export function AdminSelect({
 
 interface IAdminTableProps {
 	head?: ReactNode;
+	// Column labels, in order. On a phone each row becomes a card and these label
+	// its stacked cells (fed to the CSS as --l1..--l6). Keep them matching `head`.
+	columns?: string[];
 	children: ReactNode;
 }
 
-export function AdminTable({ head, children }: IAdminTableProps) {
+export function AdminTable({ head, columns, children }: IAdminTableProps) {
+	const labelVars = columns
+		? (Object.fromEntries(columns.map((c, i) => [`--l${i + 1}`, `"${c}"`])) as CSSProperties)
+		: undefined;
 	return (
 		<TableStyled>
-			<table>
+			<table style={labelVars}>
 				{head && <thead>{head}</thead>}
 				<tbody>{children}</tbody>
 			</table>

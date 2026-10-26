@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import {
 	FiBook,
 	FiClipboard,
@@ -10,13 +10,15 @@ import {
 	FiImage,
 	FiInbox,
 	FiLogOut,
+	FiMenu,
 	FiSettings,
 	FiShoppingBag,
 	FiStar,
 	FiUsers,
+	FiX,
 } from "react-icons/fi";
 import { can, type TPermissions, type TResource } from "@/constants/iam";
-import { RailStyled } from "./styled";
+import { RailStyled, ScrimStyled, TopBarStyled } from "./styled";
 
 export interface IAdminNavItem {
 	href: string;
@@ -68,6 +70,13 @@ export default function AdminRail({ items, activeHref, user, perms, onSignOut }:
 	// access regardless; this keeps the rail honest about what they can open.
 	const visible = items.filter((item) => can(perms, item.resource, "read"));
 
+	// On a phone the rail is a drawer. Close it whenever the route changes, so
+	// tapping a section navigates and dismisses the menu in one go.
+	const [open, setOpen] = useState(false);
+	useEffect(() => {
+		setOpen(false);
+	}, [activeHref]);
+
 	const signOut =
 		onSignOut ??
 		(async () => {
@@ -77,47 +86,70 @@ export default function AdminRail({ items, activeHref, user, perms, onSignOut }:
 		});
 
 	return (
-		<RailStyled aria-label="Admin sections">
-			<div className="brand">
-				<span className="wm" aria-hidden="true" />
-				<span className="label">Train With Awad</span>
-			</div>
-
-			{visible.map((item) => {
-				const on = activeHref === item.href || activeHref.startsWith(`${item.href}/`);
-				return (
-					<Link
-						key={item.href}
-						href={item.href}
-						className="rentry"
-						data-on={on}
-						aria-current={on ? "page" : undefined}
-					>
-						<span className="ic" aria-hidden="true">
-							{item.icon}
-						</span>
-						<span className="label">{item.label}</span>
-					</Link>
-				);
-			})}
-
-			<div className="spacer" />
-
-			<div className="ruser">
-				<span className="av" aria-hidden="true">
-					{initials(user.name, user.email)}
+		<>
+			<TopBarStyled>
+				<span className="brand">
+					<span className="wm" aria-hidden="true" />
+					Train With Awad
 				</span>
-				<span className="who">
-					<span className="name">{user.name || user.email}</span>
-					{user.name && <span className="email">{user.email}</span>}
-				</span>
-			</div>
-			<button type="button" className="signout" onClick={signOut}>
-				<span className="ic" aria-hidden="true">
-					<FiLogOut />
-				</span>
-				<span className="label">Sign out</span>
-			</button>
-		</RailStyled>
+				<button
+					type="button"
+					className="menu"
+					aria-label="Open menu"
+					aria-expanded={open}
+					onClick={() => setOpen(true)}
+				>
+					<FiMenu aria-hidden="true" />
+				</button>
+			</TopBarStyled>
+
+			<ScrimStyled data-open={open} aria-hidden="true" onClick={() => setOpen(false)} />
+
+			<RailStyled aria-label="Admin sections" data-open={open}>
+				<div className="brand">
+					<span className="wm" aria-hidden="true" />
+					<span className="label">Train With Awad</span>
+					<button type="button" className="close" aria-label="Close menu" onClick={() => setOpen(false)}>
+						<FiX aria-hidden="true" />
+					</button>
+				</div>
+
+				{visible.map((item) => {
+					const on = activeHref === item.href || activeHref.startsWith(`${item.href}/`);
+					return (
+						<Link
+							key={item.href}
+							href={item.href}
+							className="rentry"
+							data-on={on}
+							aria-current={on ? "page" : undefined}
+						>
+							<span className="ic" aria-hidden="true">
+								{item.icon}
+							</span>
+							<span className="label">{item.label}</span>
+						</Link>
+					);
+				})}
+
+				<div className="spacer" />
+
+				<div className="ruser">
+					<span className="av" aria-hidden="true">
+						{initials(user.name, user.email)}
+					</span>
+					<span className="who">
+						<span className="name">{user.name || user.email}</span>
+						{user.name && <span className="email">{user.email}</span>}
+					</span>
+				</div>
+				<button type="button" className="signout" onClick={signOut}>
+					<span className="ic" aria-hidden="true">
+						<FiLogOut />
+					</span>
+					<span className="label">Sign out</span>
+				</button>
+			</RailStyled>
+		</>
 	);
 }
