@@ -69,8 +69,15 @@ export const AdminCardStyled = styled.div`
 	padding: var(--adm-pad);
 	box-shadow: var(--adm-shadow);
 
+	/* Even vertical rhythm so the title, intro, fields, and trailing button each
+	   get breathing room instead of butting together. Margin on following
+	   siblings (not flex gap) keeps buttons at their own width. */
+	> * + * {
+		margin-top: 18px;
+	}
+
 	h2 {
-		margin: 0 0 14px;
+		margin: 0;
 		font-size: 16px;
 		font-weight: 700;
 		color: var(--adm-ink);
@@ -81,7 +88,6 @@ export const PageHeaderStyled = styled.header`
 	display: flex;
 	align-items: flex-start;
 	gap: 16px;
-	margin-bottom: 24px;
 
 	h1 {
 		margin: 0;
@@ -116,7 +122,11 @@ export const PageHeaderStyled = styled.header`
 export const FieldStyled = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 7px;
+	gap: 8px;
+
+	& + & {
+		margin-top: 18px;
+	}
 
 	label {
 		font-size: 15px;
@@ -189,6 +199,9 @@ export const AdminMainStyled = styled.main`
 
 export const AdminInnerStyled = styled.div`
 	padding: 40px 48px 56px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
 
 	@media (max-width: 640px) {
 		padding: 24px 16px 40px;

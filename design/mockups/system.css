@@ -1303,7 +1303,7 @@ a.ebook:focus-visible,
 	--adm-r-pill: 999px;
 	--adm-ctl-h: 48px;
 	--adm-gap: 16px;
-	--adm-pad: 20px;
+	--adm-pad: 24px;
 	background: var(--adm-bg);
 	color: var(--adm-ink);
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
@@ -1416,13 +1416,15 @@ a.ebook:focus-visible,
 }
 .admin .a-inner {
 	padding: 40px 48px 56px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
 }
 
 .admin .a-phead {
 	display: flex;
 	align-items: flex-start;
 	gap: 16px;
-	margin-bottom: 28px;
 }
 .admin .a-phead h1 {
 	margin: 0;
@@ -1456,8 +1458,14 @@ a.ebook:focus-visible,
 	padding: var(--adm-pad);
 	box-shadow: var(--adm-shadow);
 }
+/* Give every card an even vertical rhythm so the title, intro, fields, and
+   trailing button each get breathing room instead of butting together. Uses
+   margin on following siblings (not flex gap) so buttons keep their own width. */
+.admin .a-card > * + * {
+	margin-top: 18px;
+}
 .admin .a-card > h2 {
-	margin: 0 0 14px;
+	margin: 0;
 	font-size: 16px;
 	font-weight: 700;
 }
@@ -1497,10 +1505,10 @@ a.ebook:focus-visible,
 .admin .a-field {
 	display: flex;
 	flex-direction: column;
-	gap: 7px;
+	gap: 8px;
 }
 .admin .a-field + .a-field {
-	margin-top: 16px;
+	margin-top: 18px;
 }
 .admin .a-field label {
 	font-size: 15px;

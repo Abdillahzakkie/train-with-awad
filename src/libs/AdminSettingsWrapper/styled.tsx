@@ -4,13 +4,14 @@ import styled from "styled-components";
 
 // Intro copy above the passkey list. Colours are --adm-* tokens from adminTheme.
 export const IntroStyled = styled.p`
-	margin: 0 0 var(--adm-gap);
+	margin: 0;
 	color: var(--adm-ink-2);
+	line-height: 1.5;
 `;
 
 export const PasskeyListStyled = styled.ul`
 	list-style: none;
-	margin: 0 0 var(--adm-gap);
+	margin: 0;
 	padding: 0;
 	display: grid;
 	gap: 8px;
