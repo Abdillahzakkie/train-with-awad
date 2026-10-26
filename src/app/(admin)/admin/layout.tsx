@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
-import { redirect } from "next/navigation";
 import { getSession } from "@/server/auth";
 import { connectToDatabase } from "@/server/db/connect";
 import { getEffectivePermissions } from "@/server/iam";
 import { AdminUser } from "@/server/models/AdminUser";
+import { redirect } from "next/navigation";
+import type { ReactNode } from "react";
 import AdminShell from "./_shell";
 
 // The authed area reads the session per request. The middleware already gates

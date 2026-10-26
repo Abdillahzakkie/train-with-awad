@@ -1,8 +1,8 @@
 "use client";
-import type { ReactNode } from "react";
-import { usePathname } from "next/navigation";
 import type { TPermissions } from "@/constants/iam";
 import { ADMIN_SECTIONS, AdminRail } from "@/layouts";
+import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 
 // The authed admin frame: the sidebar beside the page. A thin client wrapper so
 // the sidebar can read the current path to highlight the active section; the

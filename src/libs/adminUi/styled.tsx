@@ -220,6 +220,23 @@ export const TableStyled = styled.div`
 	tbody tr:hover {
 		background: var(--adm-accent-wash);
 	}
+	.cell-actions {
+		display: inline-flex;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+`;
+
+// A responsive grid for dashboard tiles and card rows: one column on a phone,
+// N columns from tablet up.
+export const AdminGridStyled = styled.div<{ $cols: 2 | 3 | 4 }>`
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--adm-gap);
+
+	@media (min-width: 768px) {
+		grid-template-columns: repeat(${({ $cols }) => $cols}, 1fr);
+	}
 `;
 
 const TONE: Record<TTone, ReturnType<typeof css>> = {
@@ -397,6 +414,8 @@ export const DialogStyled = styled.dialog`
 	inset: auto;
 	width: 440px;
 	max-width: 100%;
+	max-height: calc(100vh - 48px);
+	overflow-y: auto;
 	background: var(--adm-surface);
 	border: 1px solid var(--adm-line);
 	border-radius: var(--adm-r-lg);

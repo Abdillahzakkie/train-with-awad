@@ -4,6 +4,7 @@ import { type ComponentPropsWithoutRef, type ElementType, type ReactNode, useEff
 import {
 	AdminButtonStyled,
 	AdminCardStyled,
+	AdminGridStyled,
 	AdminInputStyled,
 	AdminSelectStyled,
 	AdminTextareaStyled,
@@ -56,6 +57,15 @@ export function AdminCard({ title, as, children, ...rest }: IAdminCardProps) {
 			{children}
 		</AdminCardStyled>
 	);
+}
+
+interface IAdminGridProps {
+	$cols: 2 | 3 | 4;
+	children: ReactNode;
+}
+
+export function AdminGrid({ $cols, children }: IAdminGridProps) {
+	return <AdminGridStyled $cols={$cols}>{children}</AdminGridStyled>;
 }
 
 interface IPageHeaderProps {
@@ -248,7 +258,7 @@ export function AdminModal({
 		<OverlayStyled role="presentation" onClick={onCancel}>
 			<DialogStyled open aria-modal="true" aria-labelledby={titleId} onClick={(e) => e.stopPropagation()}>
 				<h2 id={titleId}>{title}</h2>
-				{children && <p>{children}</p>}
+				{children}
 				<div className="dialog-actions">
 					<AdminButton variant="secondary" onClick={onCancel}>
 						{cancelLabel}
