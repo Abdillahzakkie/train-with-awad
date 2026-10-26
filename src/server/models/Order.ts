@@ -1,4 +1,4 @@
-import { type InferSchemaType, type Model, Schema, model, models } from "mongoose";
+import { type HydratedDocument, type InferSchemaType, type Model, Schema, model, models } from "mongoose";
 
 // A paid ebook order, written from the Stripe webhook. See ARCHITECTURE.md
 // section 8.
@@ -16,7 +16,11 @@ const orderSchema = new Schema(
 	{ timestamps: { createdAt: true, updatedAt: false } },
 );
 
-export type TOrderDoc = InferSchemaType<typeof orderSchema>;
+// InferSchemaType omits _id and the timestamp. Add createdAt, and expose a
+// hydrated doc type so callers see _id and the document methods.
+type TOrderFields = InferSchemaType<typeof orderSchema> & { createdAt: Date };
+export type TOrderDoc = HydratedDocument<TOrderFields>;
 
 // Reuse the compiled model across hot reloads; defining it twice throws.
-export const Order: Model<TOrderDoc> = (models.Order as Model<TOrderDoc>) ?? model<TOrderDoc>("Order", orderSchema);
+export const Order: Model<TOrderFields> =
+	(models.Order as Model<TOrderFields>) ?? model<TOrderFields>("Order", orderSchema);

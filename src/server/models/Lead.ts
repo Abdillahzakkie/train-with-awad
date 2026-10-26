@@ -1,4 +1,4 @@
-import { type InferSchemaType, type Model, Schema, model, models } from "mongoose";
+import { type HydratedDocument, type InferSchemaType, type Model, Schema, model, models } from "mongoose";
 
 // A booking enquiry from the contact form. See ARCHITECTURE.md section 8.
 const leadSchema = new Schema(
@@ -14,7 +14,10 @@ const leadSchema = new Schema(
 	{ timestamps: { createdAt: true, updatedAt: false } },
 );
 
-export type TLeadDoc = InferSchemaType<typeof leadSchema>;
+// InferSchemaType omits _id and the timestamp. Add createdAt, and expose a
+// hydrated doc type so callers see _id and the document methods.
+type TLeadFields = InferSchemaType<typeof leadSchema> & { createdAt: Date };
+export type TLeadDoc = HydratedDocument<TLeadFields>;
 
 // Reuse the compiled model across hot reloads; defining it twice throws.
-export const Lead: Model<TLeadDoc> = (models.Lead as Model<TLeadDoc>) ?? model<TLeadDoc>("Lead", leadSchema);
+export const Lead: Model<TLeadFields> = (models.Lead as Model<TLeadFields>) ?? model<TLeadFields>("Lead", leadSchema);
