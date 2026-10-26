@@ -1,12 +1,12 @@
 "use client";
 
 import { type ComponentPropsWithoutRef, type ElementType, type ReactNode, useEffect, useId } from "react";
+import Select, { components, type OptionProps, type StylesConfig } from "react-select";
 import {
 	AdminButtonStyled,
 	AdminCardStyled,
 	AdminGridStyled,
 	AdminInputStyled,
-	AdminSelectStyled,
 	AdminTextareaStyled,
 	BadgeStyled,
 	DialogStyled,
@@ -125,8 +125,107 @@ export function AdminTextarea(props: ComponentPropsWithoutRef<"textarea">) {
 	return <AdminTextareaStyled {...props} />;
 }
 
-export function AdminSelect(props: ComponentPropsWithoutRef<"select">) {
-	return <AdminSelectStyled {...props} />;
+export type TAdminOption = { value: string; label: string };
+
+// react-select themed to the admin tokens (design/mockups 03-admin): a control
+// that reads like an input with a chevron, and a white menu with a hover row and
+// a ticked selection. Colours are token strings so adminTheme.ts stays the source
+// of truth. Not searchable — these are short, known lists a non-technical person
+// picks from, not a type-ahead.
+const selectStyles: StylesConfig<TAdminOption, false> = {
+	control: (base, state) => ({
+		...base,
+		minHeight: "var(--adm-ctl-h)",
+		borderRadius: "var(--adm-r-sm)",
+		borderColor: state.isFocused ? "var(--adm-accent)" : "var(--adm-line-2)",
+		boxShadow: state.isFocused ? "var(--adm-focus)" : "none",
+		backgroundColor: "var(--adm-surface)",
+		fontSize: 16,
+		"&:hover": { borderColor: state.isFocused ? "var(--adm-accent)" : "var(--adm-line-2)" },
+	}),
+	valueContainer: (base) => ({ ...base, padding: "2px 10px" }),
+	singleValue: (base) => ({ ...base, color: "var(--adm-ink)" }),
+	placeholder: (base) => ({ ...base, color: "var(--adm-ink-3)" }),
+	input: (base) => ({ ...base, color: "var(--adm-ink)" }),
+	indicatorSeparator: () => ({ display: "none" }),
+	dropdownIndicator: (base) => ({ ...base, color: "var(--adm-ink-3)", padding: "0 10px" }),
+	menu: (base) => ({
+		...base,
+		borderRadius: "var(--adm-r-sm)",
+		border: "1px solid var(--adm-line)",
+		boxShadow: "var(--adm-shadow)",
+		backgroundColor: "var(--adm-surface)",
+		overflow: "hidden",
+		marginTop: 6,
+	}),
+	menuPortal: (base) => ({ ...base, zIndex: 80 }),
+	menuList: (base) => ({ ...base, padding: 6 }),
+	option: (base, state) => ({
+		...base,
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "space-between",
+		minHeight: 40,
+		borderRadius: 8,
+		fontSize: 15,
+		fontWeight: state.isSelected ? 650 : 400,
+		cursor: "pointer",
+		color: state.isSelected ? "var(--adm-accent-strong)" : "var(--adm-ink-2)",
+		backgroundColor: state.isSelected
+			? "var(--adm-accent-wash)"
+			: state.isFocused
+				? "var(--adm-surface-2)"
+				: "transparent",
+		"&:active": {
+			backgroundColor: state.isSelected ? "var(--adm-accent-wash)" : "var(--adm-surface-2)",
+		},
+	}),
+};
+
+function AdminSelectOption(props: OptionProps<TAdminOption, false>) {
+	return (
+		<components.Option {...props}>
+			<span>{props.data.label}</span>
+			{props.isSelected && <span aria-hidden="true">✓</span>}
+		</components.Option>
+	);
+}
+
+export function AdminSelect({
+	value,
+	onChange,
+	options,
+	id,
+	ariaLabel,
+	placeholder,
+	disabled,
+}: {
+	value: string;
+	onChange: (value: string) => void;
+	options: TAdminOption[];
+	id?: string;
+	ariaLabel?: string;
+	placeholder?: string;
+	disabled?: boolean;
+}) {
+	const selected = options.find((o) => o.value === value) ?? null;
+	return (
+		<Select<TAdminOption>
+			inputId={id}
+			instanceId={id ?? ariaLabel}
+			aria-label={ariaLabel}
+			options={options}
+			value={selected}
+			onChange={(opt) => opt && onChange(opt.value)}
+			isDisabled={disabled}
+			isSearchable={false}
+			placeholder={placeholder ?? "Select…"}
+			styles={selectStyles}
+			components={{ Option: AdminSelectOption }}
+			menuPortalTarget={typeof document !== "undefined" ? document.body : undefined}
+			menuPlacement="auto"
+		/>
+	);
 }
 
 interface IAdminTableProps {

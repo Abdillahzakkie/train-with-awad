@@ -144,17 +144,12 @@ export default function AdminTeamWrapper() {
 							<td>{member.email}</td>
 							<td>
 								<AdminSelect
-									aria-label={`Role for ${member.name}`}
+									ariaLabel={`Role for ${member.name}`}
 									value={member.role ?? ""}
-									onChange={(e) => changeRole(member, e.target.value as TRole)}
-								>
-									{!member.role && <option value="">—</option>}
-									{ROLES.map((role) => (
-										<option key={role} value={role}>
-											{role}
-										</option>
-									))}
-								</AdminSelect>
+									onChange={(v) => changeRole(member, v as TRole)}
+									options={ROLES.map((role) => ({ value: role, label: role }))}
+									placeholder="—"
+								/>
 							</td>
 							<td>
 								<AdminToggle
@@ -204,14 +199,9 @@ export default function AdminTeamWrapper() {
 							<AdminSelect
 								id="tm-role"
 								value={invite.role}
-								onChange={(e) => setInvite({ ...invite, role: e.target.value as TRole })}
-							>
-								{ROLES.map((role) => (
-									<option key={role} value={role}>
-										{role}
-									</option>
-								))}
-							</AdminSelect>
+								onChange={(v) => setInvite({ ...invite, role: v as TRole })}
+								options={ROLES.map((role) => ({ value: role, label: role }))}
+							/>
 						</AdminField>
 						<AdminField
 							label="Temporary password"

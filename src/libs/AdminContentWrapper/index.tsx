@@ -295,13 +295,12 @@ export default function AdminContentWrapper({ initial }: IProps) {
 
 			<PickerStyled>
 				<AdminField label="Page" htmlFor="content-page">
-					<AdminSelect id="content-page" value={slug} onChange={(e) => setSlug(e.target.value)}>
-						{slugs.map((s) => (
-							<option key={s} value={s}>
-								{PAGE_LABELS[s] ?? humanise(s)}
-							</option>
-						))}
-					</AdminSelect>
+					<AdminSelect
+						id="content-page"
+						value={slug}
+						onChange={setSlug}
+						options={slugs.map((s) => ({ value: s, label: PAGE_LABELS[s] ?? humanise(s) }))}
+					/>
 				</AdminField>
 			</PickerStyled>
 

@@ -1,6 +1,7 @@
 "use client";
 import type { TPermissions } from "@/constants/iam";
 import { ADMIN_SECTIONS, AdminRail } from "@/layouts";
+import { AdminInnerStyled, AdminMainStyled } from "@/libs/adminUi/styled";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
@@ -20,7 +21,9 @@ export default function AdminShell({
 	return (
 		<div style={{ display: "flex", minHeight: "100vh", alignItems: "stretch" }}>
 			<AdminRail items={ADMIN_SECTIONS} activeHref={pathname} user={user} perms={perms} />
-			<main style={{ flex: 1, minWidth: 0 }}>{children}</main>
+			<AdminMainStyled>
+				<AdminInnerStyled>{children}</AdminInnerStyled>
+			</AdminMainStyled>
 		</div>
 	);
 }

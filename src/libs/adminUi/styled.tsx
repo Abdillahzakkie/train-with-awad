@@ -178,10 +178,23 @@ export const AdminTextareaStyled = styled.textarea`
 	resize: vertical;
 `;
 
-export const AdminSelectStyled = styled.select`
-	${controlBase}
-	height: var(--adm-ctl-h);
-	appearance: none;
+// The admin main area and its padded inner column. The main scrolls; the inner
+// keeps content off the top edge and within a readable width, so a page header's
+// action never jams the viewport corner (design/mockups 03-admin).
+export const AdminMainStyled = styled.main`
+	flex: 1;
+	min-width: 0;
+	overflow-y: auto;
+`;
+
+export const AdminInnerStyled = styled.div`
+	max-width: 1040px;
+	margin: 0 auto;
+	padding: 40px 48px 56px;
+
+	@media (max-width: 640px) {
+		padding: 24px 16px 40px;
+	}
 `;
 
 export const TableStyled = styled.div`
