@@ -1,0 +1,7 @@
+# pnpm 11 approves per-dependency install build scripts here, not in the
+# package.json "pnpm" field. Allow Biome (native binary), esbuild (Vitest),
+# and sharp (next/image).
+allowBuilds:
+  '@biomejs/biome': true
+  esbuild: true
+  sharp: true
