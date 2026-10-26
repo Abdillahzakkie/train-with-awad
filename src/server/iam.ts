@@ -1,12 +1,12 @@
 import "server-only";
 import {
-	can,
-	emptyPermissions,
-	mergeDocuments,
 	type TAccess,
 	type TPermissions,
 	type TPolicyDocument,
 	type TResource,
+	can,
+	emptyPermissions,
+	mergeDocuments,
 } from "@/constants/iam";
 import { requireAdmin } from "./auth";
 import { connectToDatabase } from "./db/connect";
@@ -53,9 +53,7 @@ export async function getEffectivePermissions(userId: string): Promise<TPermissi
 	await connectToDatabase();
 	const user = await AdminUser.findById(userId).lean();
 	if (!user || user.status === "disabled") return emptyPermissions();
-	const groups = (await Group.find({ members: userId })
-		.populate("policies")
-		.lean()) as PopulatedGroup[];
+	const groups = (await Group.find({ members: userId }).populate("policies").lean()) as PopulatedGroup[];
 	return mergeDocuments(docsFromGroups(groups));
 }
 
