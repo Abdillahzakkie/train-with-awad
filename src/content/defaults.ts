@@ -10,14 +10,8 @@
 // A section renders its `fields` by type; reordering sections or flipping
 // `visible` changes what shows and where, with no code change.
 
-import {
-	ABOUT_CONTENT,
-	HOME_CONTENT,
-	IN_PERSON_CONTENT,
-	LEGAL_CONTENT,
-	ONLINE_CONTENT,
-} from "./pages";
 import type { ISitePage, SiteContentData } from "@/types";
+import { ABOUT_CONTENT, HOME_CONTENT, IN_PERSON_CONTENT, LEGAL_CONTENT, ONLINE_CONTENT } from "./pages";
 
 function section(id: string, type: string, order: number, fields: Record<string, unknown>) {
 	return { id, type, order, visible: true, fields };
@@ -90,8 +84,7 @@ const legal: ISitePage = {
 const testimonials: ISitePage = {
 	slug: "testimonials",
 	metaTitle: "Testimonials",
-	metaDescription:
-		"What training with Awad is like, in lifters' own words — the strong weeks and the honest ones.",
+	metaDescription: "What training with Awad is like, in lifters' own words — the strong weeks and the honest ones.",
 	sections: [
 		section("hero", "hero", 0, {
 			eyebrow: "Testimonials",

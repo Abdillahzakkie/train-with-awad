@@ -16,4 +16,5 @@ export type TSiteContentDoc = HydratedDocument<TSiteContentFields>;
 
 // Reuse the compiled model across hot reloads; defining it twice throws.
 export const SiteContent: Model<TSiteContentFields> =
-	(mongoose.models.SiteContent as Model<TSiteContentFields>) ?? model<TSiteContentFields>("SiteContent", siteContentSchema);
+	(mongoose.models.SiteContent as Model<TSiteContentFields>) ??
+	model<TSiteContentFields>("SiteContent", siteContentSchema);

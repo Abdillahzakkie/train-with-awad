@@ -1,7 +1,7 @@
 import "server-only";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
-import { SESSION_COOKIE, type ISessionPayload, signSession, verifySession } from "./jwt";
+import { type ISessionPayload, SESSION_COOKIE, signSession, verifySession } from "./jwt";
 
 const ROUNDS = 12;
 

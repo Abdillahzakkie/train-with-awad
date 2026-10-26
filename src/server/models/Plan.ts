@@ -20,4 +20,5 @@ type TPlanFields = InferSchemaType<typeof planSchema> & { createdAt: Date };
 export type TPlanDoc = HydratedDocument<TPlanFields>;
 
 // Reuse the compiled model across hot reloads; defining it twice throws.
-export const Plan: Model<TPlanFields> = (mongoose.models.Plan as Model<TPlanFields>) ?? model<TPlanFields>("Plan", planSchema);
+export const Plan: Model<TPlanFields> =
+	(mongoose.models.Plan as Model<TPlanFields>) ?? model<TPlanFields>("Plan", planSchema);

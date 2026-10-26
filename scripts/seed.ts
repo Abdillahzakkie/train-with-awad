@@ -9,7 +9,6 @@
 
 import { existsSync } from "node:fs";
 import process from "node:process";
-import mongoose from "mongoose";
 import { EBOOKS, FAQS, PLANS, TESTIMONIALS } from "@/content";
 import { DEFAULT_SITE_CONTENT } from "@/content/defaults";
 import { Ebook } from "@/server/models/Ebook";
@@ -17,6 +16,7 @@ import { Faq } from "@/server/models/Faq";
 import { Plan } from "@/server/models/Plan";
 import { SiteContent } from "@/server/models/SiteContent";
 import { Testimonial } from "@/server/models/Testimonial";
+import mongoose from "mongoose";
 
 // Load local env before importing anything that reads process.env (the server
 // config validates env at module load). connectToDatabase is imported after.
