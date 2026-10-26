@@ -1393,8 +1393,6 @@ a.ebook:focus-visible,
 	overflow-y: auto;
 }
 .admin .a-inner {
-	max-width: 1040px;
-	margin: 0 auto;
 	padding: 40px 48px 56px;
 }
 

@@ -188,8 +188,6 @@ export const AdminMainStyled = styled.main`
 `;
 
 export const AdminInnerStyled = styled.div`
-	max-width: 1040px;
-	margin: 0 auto;
 	padding: 40px 48px 56px;
 
 	@media (max-width: 640px) {
