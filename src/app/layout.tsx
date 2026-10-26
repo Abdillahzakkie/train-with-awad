@@ -1,6 +1,6 @@
-import type { Metadata, Viewport } from "next";
 import StyledComponentsRegistry from "@/components/StyledComponentsRegistry";
 import { GlobalStyle, TW_BG } from "@/styles";
+import type { Metadata, Viewport } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 

@@ -1,4 +1,4 @@
-import { type InferSchemaType, type Model, model, models, Schema } from "mongoose";
+import { type InferSchemaType, type Model, Schema, model, models } from "mongoose";
 
 // A booking enquiry from the contact form. See ARCHITECTURE.md section 8.
 const leadSchema = new Schema(

@@ -1,6 +1,6 @@
-import { Resend } from "resend";
 import { config } from "@/server/config";
 import type { IEmailMessage, TEbookSlug } from "@/types";
+import { Resend } from "resend";
 
 let client: Resend | null = null;
 

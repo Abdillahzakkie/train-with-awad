@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Train With Awad — Shop contact sheet (9 frames, responsive)</title>
+<link rel="stylesheet" href="system.css">
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <h1>Shop — contact sheet</h1>
+  <p>The sales surface: a three-ebook catalogue, one ebook in detail, the
+     hand-off to hosted checkout, and what a buyer sees after they pay. Every
+     screen is drawn at both widths — the laptop (1280 × 800) and the phone
+     (390 × 844) — because the built site serves both from one responsive page.</p>
+  <p><strong>Buy once, keep the file.</strong> Three guides: Strength Foundations
+     <span class="money">£9.99</span>, Eat to Perform <span class="money">£7.99</span>,
+     Train Anywhere <span class="money">£8.99</span>. Money renders as money, with
+     tabular figures so a price column aligns — never a bare number.</p>
+  <p class="note"><strong>Vocabulary is frozen.</strong> Every frame is drawn in
+     <code>design/mockups/system.css</code> and invents no class or colour of its
+     own. The one primary action on a shop screen is <strong>Buy</strong> (ebook
+     detail) or <strong>Download your ebook</strong> (order); everywhere else the
+     site's single conversion goal, <strong>Book a free call</strong>, is the
+     primary and the shop action is secondary.</p>
+  <p class="stop"><strong>The site never shows a card form.</strong> Checkout is
+     hosted — the buyer enters card details on the payment provider's page, not
+     ours. <code>shop-checkout</code> is a brief hand-off with no primary action;
+     drawing a card field here would draw a screen the site does not own.</p>
+</header>
+
+<h2 class="surface">Browse and buy</h2>
+<p class="sub">The catalogue and one ebook in detail. The catalogue points at the
+   free call; the detail page is the one screen where Buy is the priority.</p>
+
+<h3 class="cluster">Laptop — 1280 × 800</h3>
+<div class="sheet desks">
+
+  <!-- ============================ shop-catalogue ========================== -->
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">shop-catalogue</span>
+      <span class="snm">Ebook catalogue</span>
+      <span class="spu">/ebooks — three guides as cards; the free call is the one primary</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk">
+      <div class="topnav">
+        <div class="brand"><span class="wm"></span> Train With Awad</div>
+        <nav class="links">
+          <a href="#">Home</a><a href="#">About</a><a href="#">Online coaching</a>
+          <a href="#">In-person coaching</a><a href="#" class="on">Ebooks</a><a href="#">FAQ</a>
+        </nav>
+        <a href="#" class="btn pri nav-cta">Book a free call</a>
+      </div>
+      <div class="pcontent">
+        <section class="section">
+          <div class="shead">
+            <span class="seyebrow">Ebooks</span>
+            <h2>Get stronger on your own schedule</h2>
+            <p class="ssub">Pick a guide, pay by card, and get the file by email. Buy
+              it once and it is yours to keep.</p>
+          </div>
+          <div class="g3" style="max-width:900px;width:100%;margin:0 auto">
+            <a href="#" class="ebook" style="text-decoration:none;color:inherit">
+              <div class="ecover">Cover</div>
+              <div class="ebody">
+                <div class="etitle">Strength Foundations</div>
+                <p class="eblurb">Add weight to the squat, hinge, press and pull over
+                  twelve weeks you can run in any gym.</p>
+                <div class="efoot"><span class="price">£9.99</span>
+                  <span class="chip" style="margin-left:auto">View the ebook</span></div>
+              </div>
+            </a>
+            <a href="#" class="ebook" style="text-decoration:none;color:inherit">
+              <div class="ecover">Cover</div>
+              <div class="ebody">
+                <div class="etitle">Eat to Perform</div>
+                <p class="eblurb">Eat to train harder and recover faster, without
+                  weighing a single meal.</p>
+                <div class="efoot"><span class="price">£7.99</span>
+                  <span class="chip" style="margin-left:auto">View the ebook</span></div>
+              </div>
+            </a>
+            <a href="#" class="ebook" style="text-decoration:none;color:inherit">
+              <div class="ecover">Cover</div>
+              <div class="ebody">
+                <div class="etitle">Train Anywhere</div>
+                <p class="eblurb">Keep your strength when you travel or the gym shuts,
+                  with full sessions using dumbbells or none.</p>
+                <div class="efoot"><span class="price">£8.99</span>
+                  <span class="chip" style="margin-left:auto">View the ebook</span></div>
+              </div>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div></div>
+    <p class="fnote">Each card is a single link whose accessible name is the ebook
+      it opens, so the per-card action names its destination without a
+      <code>View the &lt;title&gt; ebook</code> button that cannot sit beside a
+      portrait cover inside 800px at three-up. The only <code>.btn.pri</code> is
+      <strong>Book a free call</strong> in the header — the catalogue sells the
+      call, the detail page sells the ebook.</p>
+  </figure>
+
+  <!-- ============================== shop-ebook ============================ -->
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">shop-ebook</span>
+      <span class="snm">Ebook detail</span>
+      <span class="spu">/ebooks/strength-foundations — Buy for £9.99 is the one priority</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk">
+      <div class="topnav">
+        <div class="brand"><span class="wm"></span> Train With Awad</div>
+        <nav class="links">
+          <a href="#">Home</a><a href="#">About</a><a href="#">Online coaching</a>
+          <a href="#">In-person coaching</a><a href="#" class="on">Ebooks</a><a href="#">FAQ</a>
+        </nav>
+        <a href="#" class="btn outline nav-cta">Book a free call</a>
+      </div>
+      <div class="pcontent">
+        <section class="section" style="flex-direction:row;gap:40px;align-items:flex-start">
+          <div class="ebook" style="width:300px;flex:none">
+            <div class="ecover">Cover</div>
+          </div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:18px">
+            <div class="shead">
+              <span class="seyebrow">Ebook</span>
+              <h2>Strength Foundations</h2>
+            </div>
+            <p class="ssub" style="max-width:62ch">Get measurably stronger in twelve
+              weeks. A barbell plan for the squat, hinge, press and pull, with every
+              warm-up, set and weekly step written out, so you walk in knowing exactly
+              what to lift. Run it in any gym with a rack.</p>
+            <div class="card">
+              <h5>What's inside</h5>
+              <ul style="margin:8px 0 0;padding-left:18px;color:var(--tw-text-2);font-size:var(--tw-fs-sm);line-height:1.7">
+                <li>Twelve weeks of training, three days a week, that add weight on a schedule</li>
+                <li>Every set and rep mapped, so you never guess the next session</li>
+                <li>A way through a stall instead of grinding the same weight</li>
+                <li>A session log you print and fill in at the rack</li>
+              </ul>
+            </div>
+            <div style="display:flex;align-items:center;gap:20px">
+              <span class="price" style="font-size:var(--tw-fs-xl)">£9.99</span>
+              <a href="#" class="btn pri lg">Buy for £9.99</a>
+            </div>
+            <p class="hint">You pay by card on a secure page, not on this site. The
+              download link arrives by email and works for 24 hours.</p>
+          </div>
+        </section>
+      </div>
+    </div></div>
+    <p class="fnote">Buy is the sole <code>.btn.pri</code>; the header
+      <strong>Book a free call</strong> drops to a secondary <code>.btn.outline</code>
+      so the screen has one priority, as DIRECTION requires even though the checker
+      tolerates two on a desk frame. The price is written into the button label, so
+      a visitor who reads only the button still knows the cost.</p>
+  </figure>
+
+</div>
+
+<h3 class="cluster">Phone — 390 × 844</h3>
+<div class="sheet phones">
+
+  <!-- ========================= shop-catalogue-phone ======================= -->
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">shop-catalogue-phone</span>
+      <span class="snm">Ebook catalogue (mobile)</span>
+      <span class="spu">/ebooks — the three guides stacked, the free call pinned below</span>
+    </figcaption>
+    <div class="phonewrap"><div class="phone">
+      <div class="sbar"><span>9:41</span><span class="glyphs"><i></i><i></i><i></i></span></div>
+      <div class="mbar"><div class="brand"><span class="wm"></span> Train With Awad</div>
+        <span class="menu"><i></i><i></i><i></i></span></div>
+      <div class="pbody">
+        <div class="shead" style="display:flex;flex-direction:column;gap:6px">
+          <span class="seyebrow">Ebooks</span>
+          <h2 style="margin:0;font-size:var(--tw-fs-lg);font-weight:800;letter-spacing:-.015em">Get stronger on your schedule</h2>
+          <p class="ssub" style="margin:0">Buy once, keep the file. The link arrives by email.</p>
+        </div>
+        <a href="#" class="ebook" style="flex-direction:row;align-items:stretch;text-decoration:none;color:inherit">
+          <div class="ecover" style="width:84px;flex:none;border-bottom:0;border-right:1px solid var(--tw-line)">Cover</div>
+          <div class="ebody">
+            <div class="etitle">Strength Foundations</div>
+            <p class="eblurb">Add weight to the big lifts in twelve weeks.</p>
+            <div class="efoot"><span class="price">£9.99</span>
+              <span class="chip" style="margin-left:auto">View</span></div>
+          </div>
+        </a>
+        <a href="#" class="ebook" style="flex-direction:row;align-items:stretch;text-decoration:none;color:inherit">
+          <div class="ecover" style="width:84px;flex:none;border-bottom:0;border-right:1px solid var(--tw-line)">Cover</div>
+          <div class="ebody">
+            <div class="etitle">Eat to Perform</div>
+            <p class="eblurb">Eat to train harder, without weighing meals.</p>
+            <div class="efoot"><span class="price">£7.99</span>
+              <span class="chip" style="margin-left:auto">View</span></div>
+          </div>
+        </a>
+        <a href="#" class="ebook" style="flex-direction:row;align-items:stretch;text-decoration:none;color:inherit">
+          <div class="ecover" style="width:84px;flex:none;border-bottom:0;border-right:1px solid var(--tw-line)">Cover</div>
+          <div class="ebody">
+            <div class="etitle">Train Anywhere</div>
+            <p class="eblurb">Stay strong anywhere, dumbbells or none.</p>
+            <div class="efoot"><span class="price">£8.99</span>
+              <span class="chip" style="margin-left:auto">View</span></div>
+          </div>
+        </a>
+        <div style="flex:1"></div>
+        <a href="#" class="btn pri block">Book a free call</a>
+      </div>
+    </div></div>
+    <p class="fnote">The phone stacks the same three card-links in a compact row so
+      every cover, price and the free-call button sit above the fold without a
+      scroll. <strong>Book a free call</strong> is the single phone primary.</p>
+  </figure>
+
+  <!-- =========================== shop-ebook-phone ========================= -->
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">shop-ebook-phone</span>
+      <span class="snm">Ebook detail (mobile)</span>
+      <span class="spu">/ebooks/strength-foundations — cover, blurb, Buy pinned at the foot</span>
+    </figcaption>
+    <div class="phonewrap"><div class="phone">
+      <div class="sbar"><span>9:41</span><span class="glyphs"><i></i><i></i><i></i></span></div>
+      <div class="mbar"><div class="brand"><span class="wm"></span> Train With Awad</div>
+        <span class="menu"><i></i><i></i><i></i></span></div>
+      <div class="pbody" style="gap:16px">
+        <div class="ebook" style="width:168px;margin:0 auto;flex:none">
+          <div class="ecover">Cover</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span class="seyebrow" style="font-size:var(--tw-fs-sm);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tw-accent)">Ebook</span>
+          <h2 style="margin:0;font-size:var(--tw-fs-lg);font-weight:800;letter-spacing:-.015em">Strength Foundations</h2>
+        </div>
+        <p class="ssub" style="margin:0">Get stronger in twelve weeks. Every set and
+          rep for the squat, hinge, press and pull, written out for any gym.</p>
+        <ul style="margin:0;padding-left:18px;color:var(--tw-text-2);font-size:var(--tw-fs-sm);line-height:1.6">
+          <li>Twelve weeks, three days a week, that add weight on a plan</li>
+          <li>How to push past a stall, not grind it</li>
+          <li>A session log you print and fill in</li>
+        </ul>
+        <div style="flex:1"></div>
+        <span class="price" style="font-size:var(--tw-fs-lg)">£9.99</span>
+        <a href="#" class="btn pri lg block">Buy for £9.99</a>
+        <p class="hint" style="margin:0;text-align:center">You pay on a secure page.
+          The download link is emailed to you and lasts 24 hours.</p>
+      </div>
+    </div></div>
+    <p class="fnote">The cover is sized so the blurb, the price and the Buy button
+      all clear 844px without a scroll. Buy is the only primary; the price is in
+      the label.</p>
+  </figure>
+
+</div>
+
+<h2 class="surface">Checkout and delivery</h2>
+<p class="sub">The hand-off to hosted checkout, which carries no primary action,
+   and the order confirmation that delivers the file.</p>
+
+<h3 class="cluster">Laptop — 1280 × 800</h3>
+<div class="sheet desks">
+
+  <!-- ============================ shop-checkout =========================== -->
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">shop-checkout</span>
+      <span class="snm">Secure checkout hand-off</span>
+      <span class="spu">/ebooks/strength-foundations/checkout — a redirect state, no card form</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk">
+      <div class="topnav">
+        <div class="brand"><span class="wm"></span> Train With Awad</div>
+        <nav class="links">
+          <a href="#">Home</a><a href="#">About</a><a href="#">Online coaching</a>
+          <a href="#">In-person coaching</a><a href="#" class="on">Ebooks</a><a href="#">FAQ</a>
+        </nav>
+        <a href="#" class="btn outline nav-cta">Book a free call</a>
+      </div>
+      <div class="pcontent">
+        <section class="section" style="height:100%;justify-content:center;align-items:center;text-align:center">
+          <div class="card" style="max-width:460px;display:flex;flex-direction:column;gap:14px;align-items:center">
+            <span class="status is-info">Redirecting</span>
+            <h5 style="font-size:var(--tw-fs-lg)">Taking you to secure checkout</h5>
+            <p style="max-width:40ch">You finish payment on our provider's secure page,
+              then come straight back here. You enter your card there, never on this
+              site.</p>
+            <a href="#" class="btn outline">Return to the Strength Foundations ebook</a>
+          </div>
+        </section>
+      </div>
+    </div></div>
+    <p class="fnote">No primary action by design: the redirect happens on its own, so
+      the only control is the way back. There is no card field — the card screen is
+      the payment provider's, not the site's.</p>
+  </figure>
+
+  <!-- ============================= shop-order ============================= -->
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">shop-order</span>
+      <span class="snm">Order confirmation</span>
+      <span class="spu">/ebooks/order/complete — what they bought and the time-limited download</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk">
+      <div class="topnav">
+        <div class="brand"><span class="wm"></span> Train With Awad</div>
+        <nav class="links">
+          <a href="#">Home</a><a href="#">About</a><a href="#">Online coaching</a>
+          <a href="#">In-person coaching</a><a href="#" class="on">Ebooks</a><a href="#">FAQ</a>
+        </nav>
+        <a href="#" class="btn outline nav-cta">Book a free call</a>
+      </div>
+      <div class="pcontent">
+        <section class="section" style="align-items:center">
+          <div class="success">
+            <div class="scheck">&check;</div>
+            <h4>Payment complete. Your ebook is ready.</h4>
+            <p>We've emailed the download link to sam@example.com. You can download it
+              here now too.</p>
+          </div>
+          <div class="card" style="max-width:520px;width:100%;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:center;gap:14px">
+              <div class="ebook" style="width:56px;flex:none">
+                <div class="ecover" style="font-size:11px">Cover</div>
+              </div>
+              <div style="flex:1;min-width:0">
+                <div class="etitle">Strength Foundations</div>
+                <p class="hint" style="margin:2px 0 0">Ebook · PDF · order TWA-20481</p>
+              </div>
+              <span class="price">£9.99</span>
+            </div>
+            <div class="banner warn">Your download link works for 24 hours. If you
+              need longer, email it again and the 24 hours start over.</div>
+            <a href="#" class="btn pri block">Download your ebook</a>
+            <a href="#" class="btn outline block">Email the link again</a>
+          </div>
+        </section>
+      </div>
+    </div></div>
+    <p class="fnote">Download your ebook is the one primary; <strong>Book a free
+      call</strong> stays secondary in the header. The 24-hour expiry is a visible
+      note, not fine print, and the recovery — email it again — sits beside it before
+      the link ever runs out.</p>
+  </figure>
+
+</div>
+
+<h3 class="cluster">Phone — 390 × 844</h3>
+<div class="sheet phones">
+
+  <!-- ========================= shop-checkout-phone ======================== -->
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">shop-checkout-phone</span>
+      <span class="snm">Secure checkout hand-off (mobile)</span>
+      <span class="spu">/ebooks/strength-foundations/checkout — a redirect state, no card form</span>
+    </figcaption>
+    <div class="phonewrap"><div class="phone">
+      <div class="sbar"><span>9:41</span><span class="glyphs"><i></i><i></i><i></i></span></div>
+      <div class="mbar"><div class="brand"><span class="wm"></span> Train With Awad</div>
+        <span class="menu"><i></i><i></i><i></i></span></div>
+      <div class="pbody" style="justify-content:center;text-align:center;align-items:center">
+        <span class="status is-info">Redirecting</span>
+        <h2 style="margin:0;font-size:var(--tw-fs-lg);font-weight:800;letter-spacing:-.015em">Taking you to secure checkout</h2>
+        <p class="ssub" style="margin:0">You finish payment on our provider's secure
+          page, then come straight back. You enter your card there, never on this
+          site.</p>
+        <a href="#" class="btn outline block">Return to the Strength Foundations ebook</a>
+      </div>
+    </div></div>
+    <p class="fnote">The phone hand-off carries the same one secondary control and no
+      primary. The redirect is automatic.</p>
+  </figure>
+
+  <!-- =========================== shop-order-phone ========================= -->
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">shop-order-phone</span>
+      <span class="snm">Order confirmation (mobile)</span>
+      <span class="spu">/ebooks/order/complete — the receipt and the time-limited download</span>
+    </figcaption>
+    <div class="phonewrap"><div class="phone">
+      <div class="sbar"><span>9:41</span><span class="glyphs"><i></i><i></i><i></i></span></div>
+      <div class="mbar"><div class="brand"><span class="wm"></span> Train With Awad</div>
+        <span class="menu"><i></i><i></i><i></i></span></div>
+      <div class="pbody" style="gap:16px">
+        <div class="success" style="padding:8px 0 0">
+          <div class="scheck">&check;</div>
+          <h4>Payment complete</h4>
+          <p>We've emailed the link to sam@example.com. Download it here too.</p>
+        </div>
+        <div class="card" style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="ebook" style="width:48px;flex:none">
+              <div class="ecover" style="font-size:10px">Cover</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div class="etitle">Strength Foundations</div>
+              <p class="hint" style="margin:2px 0 0">Ebook · PDF</p>
+            </div>
+            <span class="price">£9.99</span>
+          </div>
+          <div class="banner warn">Your download link works for 24 hours after your order.</div>
+        </div>
+        <div style="flex:1"></div>
+        <a href="#" class="btn pri block">Download your ebook</a>
+        <a href="#" class="btn outline block">Email the link again</a>
+      </div>
+    </div></div>
+    <p class="fnote">Download is the single primary, pinned to the foot with the
+      resend beneath it; the expiry rides the receipt.</p>
+  </figure>
+
+</div>
+
+<h2 class="surface">Failure states</h2>
+<p class="sub">The one state a download site must draw well: a link that has run
+   out, and the button that fixes it.</p>
+
+<div class="sheet desks">
+
+  <!-- ============================ shop-expired ============================ -->
+  <figure class="frame">
+    <figcaption>
+      <span class="sid">shop-expired</span>
+      <span class="snm">Download link expired</span>
+      <span class="spu">/ebooks/download/:token — the failure carries its own fix</span>
+    </figcaption>
+    <div class="deskwrap"><div class="desk">
+      <div class="topnav">
+        <div class="brand"><span class="wm"></span> Train With Awad</div>
+        <nav class="links">
+          <a href="#">Home</a><a href="#">About</a><a href="#">Online coaching</a>
+          <a href="#">In-person coaching</a><a href="#" class="on">Ebooks</a><a href="#">FAQ</a>
+        </nav>
+        <a href="#" class="btn outline nav-cta">Book a free call</a>
+      </div>
+      <div class="pcontent">
+        <section class="section" style="height:100%;justify-content:center;align-items:center">
+          <div class="failure" style="max-width:520px">
+            <div class="ftitle">This download link has expired</div>
+            <p>Download links work for 24 hours after your order, and this one is past
+              it. Your purchase is still yours, so ask for a fresh link and we'll email
+              a new one to the address on order TWA-20481, free.</p>
+            <a href="#" class="btn">Email me a fresh link</a>
+          </div>
+        </section>
+      </div>
+    </div></div>
+    <p class="fnote">The failure states its cause in a human sentence — the link
+      lasts 24 hours, and this one is past it — and carries the recovery inside it,
+      so the buyer never reads a dead end. The condition leads the instruction: the
+      rule first, then the fix.</p>
+  </figure>
+
+</div>
+
+</div>
+</body>
+</html>

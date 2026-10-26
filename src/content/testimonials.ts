@@ -11,15 +11,13 @@ export interface ITestimonial {
 export const TESTIMONIALS: ITestimonial[] = [
 	{
 		name: "James P.",
-		quote:
-			"I came to Awad after two years of training on my own and going nowhere. He rebuilt my squat from the ground up, gave me a plan I could follow around shift work, and checked my form every single week. Fourteen months in I've added 40kg to my total and I turn up to every session knowing exactly what to do. The accountability was the part I didn't know I needed.",
+		quote: "I came to Awad after two years of training on my own and going nowhere. He rebuilt my squat from the ground up, gave me a plan I could follow around shift work, and checked my form every single week. Fourteen months in I've added 40kg to my total and I turn up to every session knowing exactly what to do. The accountability was the part I didn't know I needed.",
 		detail: "Online coaching · 14 months",
 		rating: 5,
 	},
 	{
 		name: "Priya S.",
-		quote:
-			"I'll be straight: the first month was harder than I expected and I missed two check-ins. Awad didn't let me drift — he scaled the plan back, and once the volume settled I started making progress I could see. I rated the first block 3 out of 5 and the next one 5. Wish I'd trusted it sooner.",
+		quote: "I'll be straight: the first month was harder than I expected and I missed two check-ins. Awad didn't let me drift — he scaled the plan back, and once the volume settled I started making progress I could see. I rated the first block 3 out of 5 and the next one 5. Wish I'd trusted it sooner.",
 		detail: "In-person · Northampton · 7 months",
 		rating: 4,
 	},

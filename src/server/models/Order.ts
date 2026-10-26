@@ -1,4 +1,4 @@
-import { type InferSchemaType, type Model, model, models, Schema } from "mongoose";
+import { type InferSchemaType, type Model, Schema, model, models } from "mongoose";
 
 // A paid ebook order, written from the Stripe webhook. See ARCHITECTURE.md
 // section 8.

@@ -1,0 +1,1261 @@
+/* ============================================================================
+   Train With Awad contact-sheet system.
+
+   The component vocabulary every frame is drawn in. A frame that invents its
+   own colour, its own radius or its own card is a frame that cannot be
+   compared to the screen it draws — so everything below is a token or a class,
+   and nothing in a sheet is a literal.
+
+   Tokens mirror the `--tw-*` set in `src/styles/global.ts`, which is the
+   contract the built app reads (ARCHITECTURE.md §7). Where the two disagree,
+   the app's `global.ts` wins and this file is the bug.
+
+   Devices, at their real CSS size:
+     .phone   390 × 844   — the site on a phone (one marketing + shop client)
+     .desk   1280 × 800   — the site on a laptop (same client, wider)
+
+   Every screen is responsive: it is drawn on BOTH the phone and the desk, not
+   one or the other. `--zoom` shrinks a frame AND its contents together via
+   transform: scale(). Content inside is authored 1:1. An outline scaled
+   without its contents clips the screen's primary action and nothing says so.
+
+   This is dark by default. There is no light variant.
+   ========================================================================= */
+
+:root {
+	/* ---- Core tokens, ARCHITECTURE.md §7. Prefix --tw- so a dependency can
+     never collide. Single amber accent; everything else is text, surface and
+     line. --------------------------------------------------------------- */
+	--tw-bg: #0c0e12;
+	--tw-surface: #14171c;
+	--tw-text: #f4f5f7;
+	--tw-muted: #a7aeba;
+	--tw-accent: #e0a94a;
+	--tw-accent-ink: #10130a;
+	--tw-radius-sm: 10px;
+	--tw-radius-pill: 999px;
+
+	/* ---- Derived surface, text and line steps. Each sits on the one above and
+     meets WCAG AA for its role against --tw-surface and --tw-bg. ---------- */
+	--tw-surface-2: #1b1f27;
+	--tw-surface-3: #232833;
+	--tw-text-2: #cfd4de; /* secondary text, >= 4.5:1 on surface */
+	--tw-text-3: #8b92a0; /* metadata and hints, >= 4.5:1 on surface */
+	--tw-text-4: #6b7280; /* disabled, decorative only */
+	--tw-line: #262b34; /* decorative dividers and row rules */
+	--tw-line-2: #646b7a; /* control borders: >= 3:1 on surface-2 for WCAG 1.4.11 */
+	--tw-accent-2: #f0c074; /* lighter amber for a hover or an emphasis dot */
+	--tw-accent-wash: #2a2112; /* amber tint behind a recommended item */
+
+	/* ---- Status. A word plus a colour, never a colour alone. Each foreground
+     meets AA on its own tinted ground and on --tw-surface. --------------- */
+	--tw-ok: #4ad58c;
+	--tw-ok-bg: #0e2a1d;
+	--tw-warn: #f0b445;
+	--tw-warn-bg: #2c2110;
+	--tw-danger: #f2757a;
+	--tw-danger-bg: #301618;
+	--tw-info: #7ba4ff;
+	--tw-info-bg: #141f38;
+
+	--tw-radius: 14px;
+	--tw-radius-lg: 18px;
+	--tw-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 30px rgba(0, 0, 0, 0.35);
+	/* Depth: a resting card shadow with an inset top highlight for a lifted
+     surface, and an amber glow for the one primary action. */
+	--tw-card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 10px 26px rgba(0, 0, 0, 0.5);
+	--tw-card-bg: linear-gradient(180deg, #171b22, #14171c);
+	--tw-accent-grad: linear-gradient(180deg, #eab857, #d8992f);
+	--tw-accent-glow: 0 6px 22px rgba(224, 169, 74, 0.3);
+	--tw-hero-glow: radial-gradient(120% 90% at 85% -10%, rgba(224, 169, 74, 0.12), transparent 60%);
+
+	/* ---- Spacing, type and control scale. The desk overrides the compact set
+     inside `.desk`. Body floor is 16px so marketing copy stays readable. -- */
+	--tw-pad: 20px;
+	--tw-gap: 16px;
+	--tw-row-h: 60px;
+	--tw-fs: 16px;
+	--tw-fs-sm: 14px;
+	--tw-fs-lg: 20px;
+	--tw-fs-xl: 28px;
+	--tw-ctl-h: 48px;
+
+	/* ---- Sheet chrome. The page the frames are laid out on, not the product. */
+	--sheet-bg: #0a0b0e;
+	--sheet-line: #1e222a;
+	--sheet-text: #e8eaef;
+	--sheet-text-2: #a7aeba;
+	--sheet-text-3: #6b7280;
+	--mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+	/* ---- How far each frame shrinks on the sheet. --------------------------- */
+	--zoom-phone: 0.86;
+	--zoom-desk: 0.62;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: var(--sheet-bg);
+	color: var(--sheet-text);
+	font: 15px / 1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+		sans-serif;
+	-webkit-text-size-adjust: 100%;
+}
+
+/* ---------- Sheet chrome -------------------------------------------------- */
+.page {
+	max-width: 1720px;
+	margin: 0 auto;
+	padding: 28px 24px 72px;
+}
+header.doc {
+	border-bottom: 1px solid var(--sheet-line);
+	padding-bottom: 18px;
+	margin-bottom: 26px;
+}
+header.doc h1 {
+	font-size: 26px;
+	font-weight: 700;
+	margin: 0 0 6px;
+	letter-spacing: -.015em;
+}
+header.doc p {
+	margin: 4px 0;
+	font-size: 14px;
+	color: var(--sheet-text-2);
+	max-width: 88ch;
+}
+header.doc code {
+	font-family: var(--mono);
+	font-size: 12.5px;
+	color: var(--tw-accent);
+}
+header.doc .note {
+	margin-top: 12px;
+	background: var(--tw-info-bg);
+	border-left: 3px solid var(--tw-info);
+	padding: 10px 12px;
+	font-size: 13px;
+	border-radius: 0 6px 6px 0;
+	max-width: 110ch;
+	color: var(--sheet-text);
+}
+header.doc .stop {
+	margin-top: 10px;
+	background: var(--tw-danger-bg);
+	border-left: 3px solid var(--tw-danger);
+	padding: 10px 12px;
+	font-size: 13px;
+	border-radius: 0 6px 6px 0;
+	max-width: 110ch;
+	color: var(--sheet-text);
+}
+h2.surface {
+	font-size: 19px;
+	font-weight: 700;
+	margin: 38px 0 4px;
+	padding-top: 16px;
+	border-top: 1px solid var(--sheet-line);
+	letter-spacing: -.01em;
+}
+h2.surface + p.sub {
+	margin: 0 0 10px;
+	font-size: 13px;
+	color: var(--sheet-text-2);
+	max-width: 88ch;
+}
+h3.cluster {
+	font-size: 14px;
+	font-weight: 700;
+	margin: 26px 0 12px;
+	color: var(--sheet-text-2);
+	text-transform: uppercase;
+	letter-spacing: .07em;
+}
+
+.sheet {
+	display: grid;
+	gap: 30px 26px;
+	align-items: start;
+}
+.sheet.phones {
+	grid-template-columns: repeat(auto-fill, minmax(min(calc(390px * 0.86), 100%), 1fr));
+}
+.sheet.desks {
+	grid-template-columns: repeat(auto-fill, minmax(min(calc(1280px * 0.62), 100%), 1fr));
+}
+
+figure.frame {
+	margin: 0;
+	min-width: 0;
+}
+figcaption {
+	margin: 0 0 8px;
+}
+figcaption .sid {
+	font-family: var(--mono);
+	font-size: 12px;
+	color: var(--tw-accent);
+	display: block;
+}
+figcaption .snm {
+	font-size: 15px;
+	font-weight: 700;
+	display: block;
+}
+figcaption .spu {
+	font-size: 12.5px;
+	color: var(--sheet-text-2);
+	display: block;
+}
+.fnote {
+	margin: 8px 0 0;
+	font-size: 12.5px;
+	color: var(--sheet-text-2);
+	max-width: 76ch;
+}
+.fnote code {
+	font-family: var(--mono);
+	font-size: 11.5px;
+	color: var(--tw-accent);
+}
+
+/* ---------- The phone frame: 390 × 844 ------------------------------------ */
+.phonewrap {
+	width: calc(390px * var(--zoom-phone));
+	height: calc(844px * var(--zoom-phone));
+	overflow: hidden;
+	border-radius: calc(30px * var(--zoom-phone));
+	max-width: 100%;
+	box-shadow: var(--tw-shadow);
+}
+.phone {
+	width: 390px;
+	height: 844px;
+	transform: scale(var(--zoom-phone));
+	transform-origin: top left;
+	background: var(--tw-bg);
+	color: var(--tw-text);
+	border: 1px solid var(--tw-line-2);
+	border-radius: calc(30px / 0.86);
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	font-size: var(--tw-fs);
+	line-height: 1.55;
+}
+
+/* status bar, 44px — drawn because it eats the top of every phone screen */
+.sbar {
+	height: 44px;
+	flex: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 22px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--tw-text);
+}
+.sbar .glyphs {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	opacity: 0.8;
+}
+.sbar .glyphs i {
+	display: block;
+	width: 15px;
+	height: 10px;
+	border-radius: 2px;
+	background: currentColor;
+	font-style: normal;
+}
+
+/* the mobile top bar: brand left, a menu glyph right. No tab bar — this is a
+   public website, not an app. */
+.mbar {
+	height: 56px;
+	flex: none;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 0 16px;
+	background: var(--tw-surface);
+	border-bottom: 1px solid var(--tw-line);
+}
+.mbar .brand {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 800;
+	font-size: 17px;
+	letter-spacing: -.015em;
+}
+.mbar .brand .wm {
+	width: 24px;
+	height: 24px;
+	border-radius: 7px;
+	background: var(--tw-accent);
+	flex: none;
+}
+.mbar .menu {
+	margin-left: auto;
+	width: 44px;
+	height: 44px;
+	border-radius: var(--tw-radius-sm);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	background: transparent;
+}
+.mbar .menu i {
+	display: block;
+	width: 20px;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--tw-text-2);
+}
+
+/* the scrolling body of a phone screen */
+.pbody {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 20px 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+.pbody.flush {
+	padding: 0;
+}
+
+/* ---------- The desktop frame: 1280 × 800 --------------------------------- */
+.deskwrap {
+	width: calc(1280px * var(--zoom-desk));
+	height: calc(800px * var(--zoom-desk));
+	overflow: hidden;
+	border-radius: 12px;
+	max-width: 100%;
+	box-shadow: var(--tw-shadow);
+}
+.desk {
+	width: 1280px;
+	height: 800px;
+	transform: scale(var(--zoom-desk));
+	transform-origin: top left;
+	background: var(--tw-bg);
+	color: var(--tw-text);
+	border: 1px solid var(--tw-line-2);
+	border-radius: calc(12px / 0.62);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	--tw-pad: 24px;
+	--tw-gap: 20px;
+	--tw-fs: 16px;
+	--tw-fs-sm: 14px;
+	--tw-fs-lg: 22px;
+	--tw-fs-xl: 40px;
+	--tw-ctl-h: 46px;
+	font-size: 16px;
+	line-height: 1.55;
+}
+
+/* the desktop top header: brand left, nav links, one primary CTA right */
+.topnav {
+	height: 68px;
+	flex: none;
+	display: flex;
+	align-items: center;
+	gap: 28px;
+	padding: 0 40px;
+	background: var(--tw-surface);
+	border-bottom: 1px solid var(--tw-line);
+}
+.topnav .brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-weight: 800;
+	font-size: 19px;
+	letter-spacing: -.015em;
+}
+.topnav .brand .wm {
+	width: 28px;
+	height: 28px;
+	border-radius: 8px;
+	background: var(--tw-accent);
+	flex: none;
+}
+.topnav .links {
+	display: flex;
+	align-items: center;
+	gap: 22px;
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--tw-text-2);
+}
+.topnav .links a {
+	color: inherit;
+	text-decoration: none;
+}
+.topnav .links a.on {
+	color: var(--tw-text);
+}
+.topnav .nav-cta {
+	margin-left: auto;
+}
+
+/* the desktop scrolling content region. The overflow script checks
+   `.pbody/.pcontent/.pane` for height, so the scroll container carries
+   `.pcontent`. `.sitebody` is an alias with the same rule for a frame that
+   prefers the clearer name. */
+.pcontent,
+.sitebody {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.pane {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+/* the footer, drawn at the bottom of a long desktop page */
+.footer {
+	background: var(--tw-surface);
+	border-top: 1px solid var(--tw-line);
+	padding: 40px;
+	display: grid;
+	grid-template-columns: 1.4fr 1fr 1fr 1fr;
+	gap: 28px;
+	color: var(--tw-text-3);
+	font-size: 14px;
+}
+.footer .fcol h6 {
+	margin: 0 0 12px;
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--tw-text-2);
+	text-transform: uppercase;
+	letter-spacing: .06em;
+}
+.footer .fcol a {
+	display: block;
+	color: var(--tw-text-3);
+	text-decoration: none;
+	padding: 4px 0;
+}
+.footer .fbrand {
+	font-weight: 800;
+	font-size: 18px;
+	color: var(--tw-text);
+	letter-spacing: -.015em;
+}
+.footer .fbrand p {
+	margin: 10px 0 0;
+	max-width: 34ch;
+	line-height: 1.5;
+}
+
+/* ---------- Hero ----------------------------------------------------------- */
+.hero {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: var(--tw-pad);
+	background: var(--tw-hero-glow);
+}
+.hero.center {
+	text-align: center;
+	align-items: center;
+}
+.hero .eyebrow {
+	font-size: var(--tw-fs-sm);
+	font-weight: 700;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: var(--tw-accent);
+}
+.hero h1 {
+	margin: 0;
+	font-size: var(--tw-fs-xl);
+	font-weight: 800;
+	line-height: 1.1;
+	letter-spacing: -.02em;
+}
+.hero p.lede {
+	margin: 0;
+	font-size: var(--tw-fs-lg);
+	color: var(--tw-text-2);
+	line-height: 1.45;
+	max-width: 52ch;
+}
+.hero .hero-cta {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin-top: 4px;
+}
+.hero.center .hero-cta {
+	justify-content: center;
+}
+/* a flat plate standing in for a hero photo — never a screenshot */
+.hero-media {
+	background: linear-gradient(135deg, #1f2530, #14171c);
+	border: 1px solid var(--tw-line-2);
+	border-radius: var(--tw-radius);
+	min-height: 220px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--tw-text-3);
+	font-size: var(--tw-fs-sm);
+	font-weight: 600;
+	box-shadow: var(--tw-card-shadow);
+}
+
+/* ---------- Section: the repeating page band ------------------------------ */
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: var(--tw-pad);
+}
+.section > .shead {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+.section > .shead.center {
+	text-align: center;
+	align-items: center;
+}
+.section .seyebrow {
+	font-size: var(--tw-fs-sm);
+	font-weight: 700;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: var(--tw-accent);
+}
+.section h2 {
+	margin: 0;
+	font-size: var(--tw-fs-lg);
+	font-weight: 800;
+	letter-spacing: -.015em;
+	line-height: 1.15;
+}
+.section .ssub {
+	margin: 0;
+	color: var(--tw-text-2);
+	font-size: var(--tw-fs);
+	max-width: 56ch;
+	line-height: 1.5;
+}
+
+/* ---------- Card ----------------------------------------------------------- */
+.card {
+	background: var(--tw-card-bg);
+	border: 1px solid var(--tw-line);
+	border-radius: var(--tw-radius);
+	padding: var(--tw-pad);
+	box-shadow: var(--tw-card-shadow);
+}
+.card h5 {
+	margin: 0 0 10px;
+	font-size: var(--tw-fs);
+	font-weight: 700;
+	letter-spacing: -.01em;
+}
+.card p {
+	margin: 0;
+	color: var(--tw-text-2);
+	font-size: var(--tw-fs-sm);
+	line-height: 1.5;
+}
+.card .cicon {
+	width: 44px;
+	height: 44px;
+	border-radius: 12px;
+	background: var(--tw-surface-2);
+	border: 1px solid var(--tw-line-2);
+	margin-bottom: 12px;
+}
+
+/* ---------- Stat (number-first proof tile) -------------------------------- */
+.stat {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+.stat-val {
+	font-size: var(--tw-fs-xl);
+	font-weight: 800;
+	letter-spacing: -.025em;
+	line-height: 1.1;
+	font-variant-numeric: tabular-nums;
+	color: var(--tw-accent);
+	text-shadow: 0 0 28px rgba(224, 169, 74, 0.28);
+}
+.stat-label {
+	color: var(--tw-text-2);
+	font-size: var(--tw-fs-sm);
+	font-weight: 600;
+	line-height: 1.35;
+}
+
+/* ---------- Step (numbered "how it works") -------------------------------- */
+.steps {
+	display: flex;
+	flex-direction: column;
+	gap: var(--tw-gap);
+}
+.step {
+	display: grid;
+	grid-template-columns: 44px 1fr;
+	gap: 16px;
+	align-items: start;
+}
+.step .snum {
+	width: 44px;
+	height: 44px;
+	border-radius: var(--tw-radius-pill);
+	background: var(--tw-accent);
+	color: var(--tw-accent-ink);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	font-weight: 800;
+	flex: none;
+	font-variant-numeric: tabular-nums;
+}
+.step .sbody h5 {
+	margin: 0 0 4px;
+	font-size: var(--tw-fs);
+	font-weight: 700;
+}
+.step .sbody p {
+	margin: 0;
+	color: var(--tw-text-2);
+	font-size: var(--tw-fs-sm);
+	line-height: 1.5;
+}
+
+/* ---------- Quote (testimonial) ------------------------------------------- */
+.quote {
+	background: var(--tw-card-bg);
+	border: 1px solid var(--tw-line);
+	border-radius: var(--tw-radius);
+	padding: var(--tw-pad);
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	box-shadow: var(--tw-card-shadow);
+}
+.quote blockquote {
+	margin: 0;
+	font-size: var(--tw-fs-lg);
+	line-height: 1.45;
+	color: var(--tw-text);
+	font-weight: 500;
+}
+.quote .qby {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+.quote .qavatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: var(--tw-surface-2);
+	border: 1px solid var(--tw-line-2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	color: var(--tw-text-2);
+	font-size: 14px;
+	flex: none;
+}
+.quote .qname {
+	display: block;
+	font-weight: 700;
+	line-height: 1.25;
+}
+.quote .qmeta {
+	display: block;
+	color: var(--tw-text-3);
+	font-size: var(--tw-fs-sm);
+	line-height: 1.3;
+}
+.quote .qstars {
+	color: var(--tw-accent);
+	font-size: var(--tw-fs-sm);
+	letter-spacing: .1em;
+}
+
+/* ---------- Plan cards: the three "ways to train" ------------------------- */
+.plans {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--tw-gap);
+}
+.plan {
+	background: var(--tw-card-bg);
+	border: 1px solid var(--tw-line);
+	border-radius: var(--tw-radius);
+	padding: var(--tw-pad);
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	position: relative;
+	box-shadow: var(--tw-card-shadow);
+}
+.plan.featured {
+	border-color: var(--tw-accent);
+	box-shadow: 0 0 0 1px var(--tw-accent), 0 10px 30px rgba(224, 169, 74, 0.22);
+}
+.plan .ptag {
+	position: absolute;
+	top: -11px;
+	left: var(--tw-pad);
+	background: var(--tw-accent);
+	color: var(--tw-accent-ink);
+	font-size: 11px;
+	font-weight: 800;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	padding: 3px 10px;
+	border-radius: var(--tw-radius-pill);
+}
+.plan .pname {
+	font-size: var(--tw-fs-lg);
+	font-weight: 800;
+	letter-spacing: -.015em;
+}
+.plan .pprice {
+	font-size: var(--tw-fs-xl);
+	font-weight: 800;
+	letter-spacing: -.025em;
+	font-variant-numeric: tabular-nums;
+}
+.plan .pprice small {
+	font-size: var(--tw-fs-sm);
+	font-weight: 600;
+	color: var(--tw-text-3);
+}
+.plan .pdesc {
+	color: var(--tw-text-2);
+	font-size: var(--tw-fs-sm);
+	line-height: 1.5;
+}
+.plan ul.pfeat {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.plan ul.pfeat li {
+	display: flex;
+	gap: 10px;
+	font-size: var(--tw-fs-sm);
+	color: var(--tw-text-2);
+	line-height: 1.4;
+}
+.plan ul.pfeat li::before {
+	content: "";
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	flex: none;
+	background: var(--tw-ok-bg);
+	border: 1px solid var(--tw-ok);
+	margin-top: 1px;
+}
+.plan .pcta {
+	margin-top: auto;
+}
+
+/* ---------- Ebook card with a price tag ----------------------------------- */
+.ebook {
+	background: var(--tw-card-bg);
+	border: 1px solid var(--tw-line);
+	border-radius: var(--tw-radius);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	box-shadow: var(--tw-card-shadow);
+}
+.ebook .ecover {
+	aspect-ratio: 3 / 4;
+	background: linear-gradient(135deg, #232a36, #161a21);
+	border-bottom: 1px solid var(--tw-line);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--tw-text-3);
+	font-size: var(--tw-fs-sm);
+	font-weight: 600;
+}
+.ebook .ebody {
+	padding: var(--tw-pad);
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	flex: 1;
+}
+.ebook .etitle {
+	font-size: var(--tw-fs);
+	font-weight: 700;
+	letter-spacing: -.01em;
+}
+.ebook .eblurb {
+	color: var(--tw-text-2);
+	font-size: var(--tw-fs-sm);
+	line-height: 1.45;
+	flex: 1;
+}
+.ebook .efoot {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-top: 4px;
+}
+.ebook .efoot .btn {
+	margin-left: auto;
+}
+.price {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 2px;
+	font-weight: 800;
+	font-size: var(--tw-fs-lg);
+	font-variant-numeric: tabular-nums;
+	color: var(--tw-text);
+	white-space: nowrap;
+}
+
+/* ---------- FAQ item ------------------------------------------------------- */
+.faq {
+	display: flex;
+	flex-direction: column;
+}
+.faq .fitem {
+	border-bottom: 1px solid var(--tw-line);
+	padding: 16px 0;
+}
+.faq .fitem:first-child {
+	padding-top: 0;
+}
+.faq .fq {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	font-size: var(--tw-fs);
+	font-weight: 700;
+	line-height: 1.4;
+}
+.faq .fq::after {
+	content: "+";
+	margin-left: auto;
+	color: var(--tw-text-3);
+	font-size: 20px;
+	flex: none;
+}
+.faq .fitem.open .fq::after {
+	content: "\2212";
+}
+.faq .fa {
+	margin: 10px 0 0;
+	color: var(--tw-text-2);
+	font-size: var(--tw-fs-sm);
+	line-height: 1.55;
+	max-width: 64ch;
+}
+
+/* ---------- Contact form: field, label, input ----------------------------- */
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+.label {
+	font-size: var(--tw-fs-sm);
+	font-weight: 700;
+	color: var(--tw-text-2);
+}
+.label .req {
+	color: var(--tw-accent);
+}
+.input {
+	display: flex;
+	align-items: center;
+	height: var(--tw-ctl-h);
+	padding: 0 14px;
+	border: 1px solid var(--tw-line-2);
+	border-radius: var(--tw-radius-sm);
+	background: var(--tw-surface-2);
+	color: var(--tw-text-3);
+	font-size: var(--tw-fs);
+}
+.input.filled {
+	color: var(--tw-text);
+}
+.input.focus {
+	border-color: var(--tw-accent);
+	box-shadow: 0 0 0 3px var(--tw-accent-wash);
+}
+textarea.input,
+.input.area {
+	height: auto;
+	min-height: 104px;
+	padding: 12px 14px;
+	align-items: flex-start;
+}
+.input-sel {
+	position: relative;
+}
+.input-sel::after {
+	content: "\2304";
+	position: absolute;
+	right: 14px;
+	top: 50%;
+	transform: translateY(-60%);
+	color: var(--tw-text-3);
+	pointer-events: none;
+}
+.hint {
+	font-size: var(--tw-fs-sm);
+	color: var(--tw-text-3);
+	line-height: 1.4;
+}
+.field-err {
+	font-size: var(--tw-fs-sm);
+	color: var(--tw-danger);
+	font-weight: 600;
+}
+.field.invalid .input {
+	border-color: var(--tw-danger);
+}
+
+/* ---------- Buttons -------------------------------------------------------- */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	height: var(--tw-ctl-h);
+	min-height: 44px;
+	padding: 0 20px;
+	border-radius: var(--tw-radius-sm);
+	border: 1px solid var(--tw-line-2);
+	background: var(--tw-surface-2);
+	color: var(--tw-text);
+	font-size: var(--tw-fs);
+	font-weight: 700;
+	white-space: nowrap;
+	text-decoration: none;
+}
+/* The one primary action on a screen — "Book a free call". */
+.btn.pri {
+	background: var(--tw-accent-grad);
+	border-color: var(--tw-accent);
+	color: var(--tw-accent-ink);
+	box-shadow: var(--tw-accent-glow);
+}
+.btn.ghost {
+	background: transparent;
+	border-color: transparent;
+	color: var(--tw-text-2);
+}
+.btn.outline {
+	background: transparent;
+	border-color: var(--tw-line-2);
+	color: var(--tw-text);
+}
+.btn.block {
+	width: 100%;
+}
+.btn.lg {
+	height: 54px;
+	min-height: 54px;
+	font-size: var(--tw-fs-lg);
+	padding: 0 26px;
+}
+/* Focus-visible ring on every control (ARCHITECTURE.md §7). The amber accent
+   clears 3:1 non-text contrast on every surface; outline-offset keeps it off
+   the control edge without shifting layout. */
+.btn:focus-visible,
+.input:focus-visible,
+.topnav .links a:focus-visible,
+.footer .fcol a:focus-visible,
+a.ebook:focus-visible,
+.faq .fq:focus-visible {
+	outline: 2px solid var(--tw-accent);
+	outline-offset: 2px;
+}
+
+/* ---------- Status: a word AND a colour, never a colour alone ------------- */
+.status {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 12px;
+	border-radius: var(--tw-radius-pill);
+	font-size: var(--tw-fs-sm);
+	font-weight: 700;
+	line-height: 1.6;
+	white-space: nowrap;
+}
+.status::before {
+	content: "";
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: currentColor;
+	flex: none;
+}
+.status.is-ok {
+	color: var(--tw-ok);
+	background: var(--tw-ok-bg);
+}
+.status.is-warn {
+	color: var(--tw-warn);
+	background: var(--tw-warn-bg);
+}
+.status.is-danger {
+	color: var(--tw-danger);
+	background: var(--tw-danger-bg);
+}
+.status.is-info {
+	color: var(--tw-info);
+	background: var(--tw-info-bg);
+}
+
+/* ---------- Money renders as money. Tabular figures so columns align. ----- */
+.money,
+.num {
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: "tnum" 1;
+	white-space: nowrap;
+}
+.money {
+	font-weight: 800;
+}
+
+/* ---------- Banners -------------------------------------------------------- */
+.banner {
+	display: block;
+	padding: 12px 14px;
+	border-radius: var(--tw-radius-sm);
+	font-size: var(--tw-fs-sm);
+	line-height: 1.45;
+	background: var(--tw-info-bg);
+	color: var(--tw-info);
+	border-left: 3px solid currentColor;
+}
+.banner.warn {
+	background: var(--tw-warn-bg);
+	color: var(--tw-warn);
+}
+.banner.ok {
+	background: var(--tw-ok-bg);
+	color: var(--tw-ok);
+}
+.banner.danger {
+	background: var(--tw-danger-bg);
+	color: var(--tw-danger);
+}
+
+/* ---------- States: every screen has a real empty and a real failure ------
+   The ease check requires an `.empty` to carry a `.btn` (name the action that
+   fills it) and a `.failure` to carry a `.btn` (carry its own fix). */
+.empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	padding: 40px 24px;
+	text-align: center;
+	color: var(--tw-text-3);
+}
+.empty .eglyph {
+	width: 52px;
+	height: 52px;
+	border-radius: 14px;
+	background: var(--tw-surface-2);
+	border: 1px solid var(--tw-line-2);
+	margin-bottom: 4px;
+}
+.empty .etitle {
+	color: var(--tw-text);
+	font-weight: 700;
+	font-size: var(--tw-fs);
+}
+.empty p {
+	margin: 0;
+	font-size: var(--tw-fs-sm);
+	max-width: 38ch;
+	line-height: 1.5;
+}
+.empty .btn {
+	margin-top: 6px;
+}
+.failure {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 16px;
+	border-radius: var(--tw-radius-sm);
+	background: var(--tw-danger-bg);
+	color: var(--tw-danger);
+	border: 1px solid currentColor;
+	font-size: var(--tw-fs-sm);
+	line-height: 1.5;
+}
+.failure .ftitle {
+	font-weight: 700;
+	color: var(--tw-text);
+}
+.failure p {
+	margin: 0;
+	color: var(--tw-text-2);
+}
+.failure .btn {
+	align-self: flex-start;
+}
+
+/* ---------- The success state for a submitted form ------------------------ */
+.success {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	text-align: center;
+	padding: 32px 24px;
+}
+.success .scheck {
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	background: var(--tw-ok-bg);
+	border: 1px solid var(--tw-ok);
+	color: var(--tw-ok);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 26px;
+	font-weight: 800;
+}
+.success h4 {
+	margin: 0;
+	font-size: var(--tw-fs-lg);
+	font-weight: 800;
+}
+.success p {
+	margin: 0;
+	color: var(--tw-text-2);
+	font-size: var(--tw-fs-sm);
+	max-width: 40ch;
+	line-height: 1.5;
+}
+
+/* ---------- Grids inside a section ---------------------------------------- */
+.g2 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--tw-gap);
+}
+.g3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--tw-gap);
+}
+.g4 {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: var(--tw-gap);
+}
+/* On the phone every multi-column grid collapses to one column. No horizontal
+   overflow, ever. */
+.phone .g2,
+.phone .g3,
+.phone .g4,
+.phone .plans {
+	grid-template-columns: 1fr;
+}
+
+/* ---------- Chips ---------------------------------------------------------- */
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 12px;
+	border-radius: var(--tw-radius-pill);
+	background: var(--tw-surface-2);
+	color: var(--tw-text-2);
+	font-size: var(--tw-fs-sm);
+	font-weight: 600;
+	white-space: nowrap;
+}
+.chip.on {
+	background: var(--tw-accent-wash);
+	color: var(--tw-accent);
+}
+.chips {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+/* ---------- Narrow viewports ----------------------------------------------
+   A frame is a fixed-size artboard, so the sheet does not reflow the way a
+   page does — at a narrow window the 793px desk frame overhangs a 375px grid
+   track and the page scrolls sideways. The fix is the zoom, not the outline:
+   shrinking `--zoom-*` takes the frame AND its contents down together, the one
+   transformation that never clips the screen's primary action. */
+@media (max-width: 1024px) {
+	:root {
+		--zoom-desk: 0.42;
+	}
+}
+@media (max-width: 820px) {
+	:root {
+		--zoom-desk: 0.3;
+		--zoom-phone: 0.74;
+	}
+}
+@media (max-width: 430px) {
+	:root {
+		--zoom-desk: 0.24;
+		--zoom-phone: 0.62;
+	}
+	.page {
+		padding: 20px 16px 56px;
+	}
+}

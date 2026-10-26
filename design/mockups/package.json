@@ -1,0 +1,14 @@
+{
+	"name": "train-with-awad-mockups",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"manifest": "node build-manifest.mjs",
+		"overflow": "node check-overflow.mjs",
+		"ease": "node check-ease.mjs",
+		"render": "node render-sheets.mjs"
+	},
+	"devDependencies": {
+		"@playwright/test": "1.63.0"
+	}
+}

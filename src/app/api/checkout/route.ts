@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
 import { EBOOKS } from "@/content";
 import { config } from "@/server/config";
 import { ServiceError } from "@/server/errors";
 import { createCheckoutSession } from "@/server/services/stripe";
 import { checkoutSchema } from "@/server/validators/checkout";
+import { NextResponse } from "next/server";
 
 // POST to start Stripe Checkout for one ebook. Look the slug up in the content
 // catalogue, create a hosted session, and return its URL for the client to

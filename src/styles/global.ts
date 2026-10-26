@@ -1,6 +1,6 @@
 "use client";
-import { createGlobalStyle } from "styled-components";
 import { TW_ACCENT, TW_BG } from "@/styles/colors";
+import { createGlobalStyle } from "styled-components";
 
 // Design tokens as CSS custom properties, prefix --tw-. No ThemeProvider: server
 // components read these too. Values match the approved design system in

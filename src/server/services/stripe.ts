@@ -1,7 +1,7 @@
-import Stripe from "stripe";
 import { config } from "@/server/config";
 import { StripeDisabledError } from "@/server/errors";
 import type { ICheckoutEbook } from "@/types";
+import Stripe from "stripe";
 
 let client: Stripe | null = null;
 

@@ -110,10 +110,22 @@ export const ABOUT_CONTENT: IAboutContent = {
 		eyebrow: "How he works",
 		title: "A plan you follow, form that keeps you lifting",
 		points: [
-			{ title: "Plan first", body: "A plan written around your life, not a template with your name dropped on it." },
-			{ title: "Form every week", body: "You send videos of the big lifts and Awad catches a fault before it becomes a habit." },
-			{ title: "Honest check-ins", body: "A bad week changes the plan. Progress comes from adjusting, not from pretending." },
-			{ title: "Qualified", body: "Level 3 personal trainer, powerlifting coach, first-aid certified, and fully insured." },
+			{
+				title: "Plan first",
+				body: "A plan written around your life, not a template with your name dropped on it.",
+			},
+			{
+				title: "Form every week",
+				body: "You send videos of the big lifts and Awad catches a fault before it becomes a habit.",
+			},
+			{
+				title: "Honest check-ins",
+				body: "A bad week changes the plan. Progress comes from adjusting, not from pretending.",
+			},
+			{
+				title: "Qualified",
+				body: "Level 3 personal trainer, powerlifting coach, first-aid certified, and fully insured.",
+			},
 		],
 	},
 };
